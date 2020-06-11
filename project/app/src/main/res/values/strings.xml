@@ -9,4 +9,10 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="first_name">Primeiro nome:</string>
+    <string name="last_name">Sobrenome:</string>
+    <string name="email">Email:</string>
+    <string name="birth_year">Ano de nascimento:</string>
+    <string name="sign_up_button">Cadastrar</string>
+    <string name="signUpErrorMessage">este campo deve ser preenchido!</string>
 </resources>
