@@ -5,7 +5,14 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.covid_19tracker.model.Person
+import com.example.covid_19tracker.service.PersonService
+import com.example.covid_19tracker.service.PersonServiceFactory
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SignUpActivity : AppCompatActivity(){
 
@@ -20,6 +27,8 @@ class SignUpActivity : AppCompatActivity(){
     private lateinit var birthYearEditText: EditText
     private lateinit var signUpButton: Button
     private lateinit var oldTextColor: ColorStateList
+
+    private lateinit var personService: PersonService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,12 +48,35 @@ class SignUpActivity : AppCompatActivity(){
             signUp()
         }
         oldTextColor = firstNameTextView.textColors
+
+        personService = PersonServiceFactory.makeService()
     }
 
     private fun signUp(){
         var validForm: Boolean = validateSignUpForm()
         if(validForm){
-            //TODO: create the user in the data base
+            val person = Person(firstName = firstNameEditText.text.toString(),
+                                lastName = lastNameEditText.text.toString(),
+                                emailAddr = emailEditText.text.toString(),
+                                birthYear = birthYearEditText.text.toString())
+
+            personService.signUpPerson(person).enqueue(object:
+                Callback<Person?> {
+                override fun onFailure(call: Call<Person?>, t: Throwable) {
+                    Toast.makeText(this@SignUpActivity, "Oops something went wrong please check your internet connection", Toast.LENGTH_LONG).show()
+                }
+
+                override fun onResponse(
+                    call: Call<Person?>,
+                    response: Response<Person?>
+                ) {
+                    if (response.body() != null && response.body()?.personId != 0L) { // our business rule is that if status is true then entity is not null
+                        Toast.makeText(this@SignUpActivity, "OK", Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(this@SignUpActivity, "Something went terribly wrong", Toast.LENGTH_LONG).show()
+                    }
+                }
+            })
         }
     }
 
@@ -53,20 +85,20 @@ class SignUpActivity : AppCompatActivity(){
         val editTextArray = arrayOf(firstNameEditText, lastNameEditText, emailEditText, birthYearEditText)
         val textViewArray = arrayOf(firstNameTextView, lastNameTextView, emailTextView, birthYearTextView)
         var okFlag: Boolean = true
-        var oldTextLabels: ArrayList<String> = ArrayList()
+        val oldTextLabels: ArrayList<String> = ArrayList()
         for(textView in textViewArray){
             oldTextLabels.add(textView.text.toString())
         }
-        var i = 1
+        var i = 0
         for( (editText, textView) in editTextArray.zip(textViewArray)){
             if(editText.text.isEmpty()){
                 textView.setTextColor(getColor(R.color.colorRed))
-                var currText:String = textView.text.toString()
-                textView.setText(currText + " " +  resources.getString(R.string.signUpErrorMessage))
+                val currText: String = textView.text.toString()
+                textView.text = currText + " " +  resources.getString(R.string.signUpErrorMessage)
                 okFlag = false
             }else{
                 textView.setTextColor(oldTextColor)
-                textView.setText(oldTextLabels[i])
+                textView.text = oldTextLabels[i]
             }
             i += 1
         }
