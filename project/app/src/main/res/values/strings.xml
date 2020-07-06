@@ -15,4 +15,11 @@
     <string name="birth_year">Ano de nascimento:</string>
     <string name="sign_up_button">Cadastrar</string>
     <string name="signUpErrorMessage">este campo deve ser preenchido!</string>
+    <string name="sign_out">Sair</string>
+    <string name="type_address">Tipo de Residência:</string>
+    <string name="zip_code">CEP:</string>
+    <string name="city">Cidade:</string>
+    <string name="state">Estado:</string>
+    <string name="contry">País</string>
+    <string name="signUp">Cadastrar</string>
 </resources>

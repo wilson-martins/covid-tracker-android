@@ -1,97 +1,216 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".SignUpActivity">
+    android:layout_height="match_parent">
 
-
-    <TextView
-        android:id="@+id/first_name"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_left"
-        android:layout_marginTop="@dimen/margin_top"
-        android:layout_marginEnd="@dimen/margin_right"
-        android:text="@string/first_name"
-        app:layout_constraintBottom_toTopOf="@id/edit_first_name"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        tools:context=".SignUpActivity">
 
-    <EditText
-        android:id="@+id/edit_first_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_left"
-        android:layout_marginEnd="@dimen/margin_right"
-        app:layout_constraintBottom_toTopOf="@id/last_name"
-        app:layout_constraintTop_toBottomOf="@id/first_name" />
 
-    <TextView
-        android:id="@+id/last_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_left"
-        android:layout_marginEnd="@dimen/margin_right"
-        android:text="@string/last_name"
-        app:layout_constraintBottom_toTopOf="@id/edit_last_name"
-        app:layout_constraintTop_toBottomOf="@id/edit_first_name" />
+        <TextView
+            android:id="@+id/first_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_left"
+            android:layout_marginTop="@dimen/margin_top"
+            android:layout_marginEnd="@dimen/margin_right"
+            android:inputType="textPersonName"
+            android:text="@string/first_name"
+            app:layout_constraintBottom_toTopOf="@id/edit_first_name"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/edit_last_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_left"
-        android:layout_marginEnd="@dimen/margin_right"
-        app:layout_constraintBottom_toTopOf="@id/email"
-        app:layout_constraintTop_toBottomOf="@id/last_name" />
+        <EditText
+            android:id="@+id/edit_first_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_left"
+            android:layout_marginEnd="@dimen/margin_right"
+            app:layout_constraintBottom_toTopOf="@id/last_name"
+            app:layout_constraintTop_toBottomOf="@id/first_name" />
 
-    <TextView
-        android:id="@+id/email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_left"
-        android:layout_marginEnd="@dimen/margin_right"
-        android:text="@string/email"
-        app:layout_constraintBottom_toTopOf="@id/edit_email"
-        app:layout_constraintTop_toBottomOf="@id/edit_last_name" />
+        <TextView
+            android:id="@+id/last_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_left"
+            android:layout_marginEnd="@dimen/margin_right"
+            android:text="@string/last_name"
+            app:layout_constraintBottom_toTopOf="@id/edit_last_name"
+            app:layout_constraintTop_toBottomOf="@id/edit_first_name" />
 
-    <EditText
-        android:id="@+id/edit_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_left"
-        android:layout_marginEnd="@dimen/margin_right"
-        app:layout_constraintBottom_toTopOf="@id/birth_year"
-        app:layout_constraintTop_toBottomOf="@id/email" />
+        <EditText
+            android:id="@+id/edit_last_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_left"
+            android:layout_marginEnd="@dimen/margin_right"
+            app:layout_constraintBottom_toTopOf="@id/email"
+            app:layout_constraintTop_toBottomOf="@id/last_name" />
 
-    <TextView
-        android:id="@+id/birth_year"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_left"
-        android:layout_marginEnd="@dimen/margin_right"
-        android:text="@string/birth_year"
-        app:layout_constraintBottom_toTopOf="@id/edit_birth_year"
-        app:layout_constraintTop_toBottomOf="@id/edit_email" />
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_left"
+            android:layout_marginEnd="@dimen/margin_right"
+            android:text="@string/email"
+            app:layout_constraintBottom_toTopOf="@id/edit_email"
+            app:layout_constraintTop_toBottomOf="@id/edit_last_name" />
 
-    <EditText
-        android:id="@+id/edit_birth_year"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_left"
-        android:layout_marginEnd="@dimen/margin_right"
-        app:layout_constraintBottom_toTopOf="@+id/sign_up_button"
-        app:layout_constraintTop_toBottomOf="@id/birth_year" />
+        <EditText
+            android:id="@+id/edit_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_left"
+            android:layout_marginEnd="@dimen/margin_right"
+            android:inputType="textEmailAddress"
+            app:layout_constraintBottom_toTopOf="@id/birth_year"
+            app:layout_constraintTop_toBottomOf="@id/email" />
 
-    <Button
-        android:id="@+id/sign_up_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_left"
-        android:layout_marginEnd="@dimen/margin_right"
-        android:layout_marginBottom="@dimen/margin_bottom"
-        android:text="@string/sign_up_button"
-        app:layout_constraintBottom_toBottomOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/birth_year"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_left"
+            android:layout_marginEnd="@dimen/margin_right"
+            android:text="@string/birth_year"
+            android:inputType="number"
+            app:layout_constraintTop_toBottomOf="@id/edit_email"
+            tools:layout_editor_absoluteX="8dp" />
+
+
+        <EditText
+            android:id="@+id/edit_birth_year"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_left"
+            android:layout_marginEnd="@dimen/margin_right"
+            android:inputType="textPostalAddress"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/birth_year" />
+
+        <TextView
+            android:id="@+id/contry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_left"
+            android:layout_marginEnd="@dimen/margin_right"
+            android:text="@string/contry"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_birth_year" />
+
+        <EditText
+            android:id="@+id/edit_contry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_left"
+            android:layout_marginEnd="@dimen/margin_right"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/contry" />
+
+        <TextView
+            android:id="@+id/state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_left"
+            android:layout_marginEnd="@dimen/margin_right"
+            android:text="@string/state"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_contry" />
+
+        <EditText
+            android:id="@+id/edit_state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_left"
+            android:layout_marginEnd="@dimen/margin_right"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/state" />
+
+        <TextView
+            android:id="@+id/city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_left"
+            android:layout_marginEnd="@dimen/margin_right"
+            android:text="@string/city"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_state" />
+
+        <EditText
+            android:id="@+id/edit_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_left"
+            android:layout_marginEnd="@dimen/margin_right"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/city" />
+
+        <TextView
+            android:id="@+id/zip_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_left"
+            android:layout_marginEnd="@dimen/margin_right"
+            android:text="@string/zip_code"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_city" />
+
+        <EditText
+            android:id="@+id/edit_zip_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_left"
+            android:layout_marginEnd="@dimen/margin_right"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/zip_code" />
+
+        <TextView
+            android:id="@+id/type_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_left"
+            android:layout_marginEnd="@dimen/margin_right"
+            android:text="@string/type_address"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_zip_code" />
+
+        <EditText
+            android:id="@+id/edit_type_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_left"
+            android:layout_marginEnd="@dimen/margin_right"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/type_address" />
+
+        <Button
+            android:id="@+id/signup_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/signUp"
+            app:layout_constraintTop_toBottomOf="@id/edit_type_address"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
+

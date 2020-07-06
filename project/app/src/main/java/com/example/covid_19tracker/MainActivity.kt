@@ -2,47 +2,31 @@ package com.example.covid_19tracker
 
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
-
+import com.example.covid_19tracker.common.SharedPreferenceKeys
+import com.example.covid_19tracker.common.SharedPreferencesSettings
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
 
+class MainActivity : BasicActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         val fab: View = findViewById(R.id.fab)
+
+        // Fab button lauches the singUp activity
         fab.setOnClickListener() {
             intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
 
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
+        //If the user is not logged in, start login activity
+        if(SharedPreferencesSettings.loadBoolean(this,SharedPreferenceKeys.LOGGED_IN_PREF) == false) kotlin.run{
+            val intent:Intent = Intent(this,SignInActivity::class.java)
+            startActivity(intent)
         }
-    }
 
-    public fun launchSecondActivity(view: View){
-        intent = Intent(this,SignUpActivity::class.java)
-        startActivity(intent)
     }
 
 }
