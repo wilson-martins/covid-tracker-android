@@ -50,6 +50,7 @@ open class BasicActivity : AppCompatActivity() {
 
     private fun signOut(): Boolean {
         SharedPreferencesSettings.setBoolean(this,SharedPreferenceKeys.LOGGED_IN_PREF, false)
+        SharedPreferencesSettings.setBoolean(this, SharedPreferenceKeys.FIRST_LOGIN, true)
         mGoogleSignInClient.signOut()
             .addOnCompleteListener(this) {
                 // Update your UI here

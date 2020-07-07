@@ -22,17 +22,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".SignUpActivity"
             android:label="Cadastro de Usuário"
             android:parentActivityName=".MainActivity">
         </activity>
+
         <activity android:name=".SignInActivity"
             android:label="Sign In com Conta Google">
         </activity>
 
-        <activity android:name=".HomeActivity"
-            android:label="Sign In com Conta Google">
+        <activity android:name=".HealthStateActivity"
+            android:label="Notificar Informações de Saúde"
+            android:parentActivityName=".MainActivity">
         </activity>
+
     </application>
 
 </manifest>

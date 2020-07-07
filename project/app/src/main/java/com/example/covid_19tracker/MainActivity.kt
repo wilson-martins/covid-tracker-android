@@ -29,4 +29,9 @@ class MainActivity : BasicActivity() {
 
     }
 
+    fun editHealthInformation(view: View){
+        intent = Intent(this, HealthStateActivity::class.java)
+        startActivity(intent)
+    }
+
 }

@@ -46,6 +46,7 @@
         android:layout_margin="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:onClick="editHealthInformation"
         app:layout_constraintEnd_toStartOf="@+id/user_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout"

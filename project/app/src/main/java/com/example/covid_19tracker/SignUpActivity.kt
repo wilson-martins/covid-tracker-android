@@ -34,8 +34,6 @@ class SignUpActivity : AppCompatActivity(){
     private lateinit var signUpButton: Button
 
     private lateinit var personService: PersonService
-    // Text instructions guide the user when inputing data
-    private var oldTextLabels: ArrayList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
