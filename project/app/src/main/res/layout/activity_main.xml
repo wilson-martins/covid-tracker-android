@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
@@ -27,10 +28,106 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_dialog_email" />
+
+    <ImageView
+        android:id="@+id/warning_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_below="@id/appBarLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/user_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        app:srcCompat="@drawable/warning_icon" />
+
+    <ImageView
+        android:id="@+id/user_icon"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/appBarLayout"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/warning_icon"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        app:srcCompat="@drawable/user_icon" />
+
+    <ImageView
+        android:id="@+id/info_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/map_icon"
+        app:layout_constraintTop_toBottomOf="@+id/user_profile_text"
+        app:srcCompat="@drawable/info_icon" />
+
+    <ImageView
+        android:id="@+id/map_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/info_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notify_covid_text"
+        app:srcCompat="@drawable/map_icon" />
+
+    <TextView
+        android:id="@+id/notify_covid_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Notificar Sintomas"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/warning_icon"
+        app:layout_constraintStart_toStartOf="@+id/warning_icon"
+        app:layout_constraintTop_toBottomOf="@+id/warning_icon" />
+
+    <TextView
+        android:id="@+id/user_profile_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Perfil"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/user_icon"
+        app:layout_constraintStart_toStartOf="@+id/user_icon"
+        app:layout_constraintTop_toBottomOf="@+id/user_icon" />
+
+    <TextView
+        android:id="@+id/map_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Minhas Localizações"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/map_icon"
+        app:layout_constraintStart_toStartOf="@+id/map_icon"
+        app:layout_constraintTop_toBottomOf="@+id/map_icon" />
+
+    <TextView
+        android:id="@+id/information_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Informações"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/info_icon"
+        app:layout_constraintStart_toStartOf="@+id/info_icon"
+        app:layout_constraintTop_toBottomOf="@+id/info_icon" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
