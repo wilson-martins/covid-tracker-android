@@ -15,7 +15,7 @@ class MainActivity : BasicActivity() {
         setSupportActionBar(toolbar)
         val fab: View = findViewById(R.id.fab)
 
-        // Fab button lauches the singUp activity
+        // Fab button launches the singUp activity
         fab.setOnClickListener() {
             intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
@@ -27,6 +27,11 @@ class MainActivity : BasicActivity() {
             startActivity(intent)
         }
 
+    }
+
+    fun editHealthInformation(view: View){
+        intent = Intent(this, HealthStateActivity::class.java)
+        startActivity(intent)
     }
 
 }
