@@ -1,4 +1,4 @@
-package com.example.covid_19tracker
+package com.example.covid_19tracker.receiver
 
 /*
  * Copyright (C) 2020 Google Inc. All Rights Reserved.

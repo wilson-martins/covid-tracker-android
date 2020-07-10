@@ -1,24 +1,23 @@
-package com.example.covid_19tracker
+package com.example.covid_19tracker.ui
 
 import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import com.example.covid_19tracker.BuildConfig
+import com.example.covid_19tracker.R
 import com.example.covid_19tracker.databinding.FragmentPermissionRequestBinding
 import com.example.covid_19tracker.utils.hasPermission
 import com.example.covid_19tracker.utils.requestPermissionWithRationale
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_permission_request.*
 
 private const val TAG = "PermissionRequestFrag"
 

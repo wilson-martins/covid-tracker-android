@@ -1,16 +1,17 @@
-package com.example.covid_19tracker
+package com.example.covid_19tracker.ui
 
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import com.example.covid_19tracker.R
 
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), PermissionRequestFragment.Callbacks,
+class MainActivity : AppCompatActivity(),
+    PermissionRequestFragment.Callbacks,
     LocationUpdateFragment.Callbacks {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,7 +54,7 @@ class MainActivity : AppCompatActivity(), PermissionRequestFragment.Callbacks,
     }
 
     public fun launchSecondActivity(view: View){
-        intent = Intent(this,SignUpActivity::class.java)
+        intent = Intent(this, SignUpActivity::class.java)
         startActivity(intent)
     }
 
@@ -72,7 +73,10 @@ class MainActivity : AppCompatActivity(), PermissionRequestFragment.Callbacks,
     // Triggers a splash screen (fragment) to help users decide if they want to approve the missing
     // fine location permission.
     override fun requestFineLocationPermission() {
-        val fragment = PermissionRequestFragment.newInstance(PermissionRequestType.FINE_LOCATION)
+        val fragment =
+            PermissionRequestFragment.newInstance(
+                PermissionRequestType.FINE_LOCATION
+            )
 
         supportFragmentManager
             .beginTransaction()
@@ -84,9 +88,10 @@ class MainActivity : AppCompatActivity(), PermissionRequestFragment.Callbacks,
     // Triggers a splash screen (fragment) to help users decide if they want to approve the missing
     // background location permission.
     override fun requestBackgroundLocationPermission() {
-        val fragment = PermissionRequestFragment.newInstance(
-            PermissionRequestType.BACKGROUND_LOCATION
-        )
+        val fragment =
+            PermissionRequestFragment.newInstance(
+                PermissionRequestType.BACKGROUND_LOCATION
+            )
 
         supportFragmentManager
             .beginTransaction()

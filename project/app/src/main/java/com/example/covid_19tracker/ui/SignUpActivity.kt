@@ -1,4 +1,4 @@
-package com.example.covid_19tracker
+package com.example.covid_19tracker.ui
 
 import android.content.res.ColorStateList
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.covid_19tracker.R
 import com.example.covid_19tracker.model.Person
 import com.example.covid_19tracker.service.PersonService
 import com.example.covid_19tracker.service.PersonServiceFactory

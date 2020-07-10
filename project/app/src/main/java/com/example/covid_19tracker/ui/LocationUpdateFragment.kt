@@ -1,4 +1,4 @@
-package com.example.covid_19tracker
+package com.example.covid_19tracker.ui
 
 import android.Manifest
 import android.content.Context
@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.example.covid_19tracker.R
 import com.example.covid_19tracker.databinding.FragmentLocationUpdateBinding
 import com.example.covid_19tracker.utils.LocationUpdateViewModel
 import com.example.covid_19tracker.utils.hasPermission
@@ -152,6 +153,7 @@ class LocationUpdateFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance() = LocationUpdateFragment()
+        fun newInstance() =
+            LocationUpdateFragment()
     }
 }
