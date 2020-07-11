@@ -6,5 +6,5 @@ import java.util.*
 data class StatusHistory constructor(var statusHistoryId: Long? = null,
                                      var diseaseId: Int = Constants.DISEASE_ID,
                                      var statusDt: Date = Date(),
-                                     var healthState: HealthState,
+                                     var value: HealthState,
                                      var personId: Long)

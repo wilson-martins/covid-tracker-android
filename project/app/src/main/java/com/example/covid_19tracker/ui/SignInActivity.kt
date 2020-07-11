@@ -124,32 +124,6 @@ class SignInActivity : BasicActivity() {
         SharedPreferencesSettings.setString(this, SharedPreferenceKeys.GOOGLE_ID_TOKEN,
             googleIdToken)
 
-        val person = Person(firstName = account.givenName ?: "",
-            lastName = account.familyName ?: "",
-            emailAddr = account.email ?: "",
-            googleId = account.id ?: "",
-            googleIdToken = account.idToken ?: "",
-            googleProfilePictureUrl = account.photoUrl.toString())
-
-        personService.signUpPerson(person).enqueue(object:
-            Callback<Person?> {
-            override fun onFailure(call: Call<Person?>, t: Throwable) {
-                Toast.makeText(this@SignInActivity, "Oops something went wrong please check your internet connection", Toast.LENGTH_LONG).show()
-            }
-
-            override fun onResponse(
-                call: Call<Person?>,
-                response: Response<Person?>
-            ) {
-                if (response.body() != null && response.body()?.personId != 0L) {
-                    SharedPreferencesSettings.setLong(this@SignInActivity, SharedPreferenceKeys.PERSON_ID, response.body()?.personId ?: 0)
-                    Toast.makeText(this@SignInActivity, "OK", Toast.LENGTH_LONG).show()
-                } else {
-                    Toast.makeText(this@SignInActivity, "Something went terribly wrong", Toast.LENGTH_LONG).show()
-                }
-            }
-        })
-
         // Go to sign up activity
         intent = Intent(this, SignUpActivity::class.java)
         startActivity(intent)

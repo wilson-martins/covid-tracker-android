@@ -100,7 +100,7 @@ class HealthStateActivity: AppCompatActivity() {
 
             val statusHistory = StatusHistory(
                 statusDt = statusDate!!,
-                healthState = healthState,
+                value = healthState,
                 personId = personId!!
             )
             statusHistoryService.addStatusHistory(statusHistory).enqueue(object :

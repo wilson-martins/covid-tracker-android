@@ -76,7 +76,10 @@ class SignUpActivity : AppCompatActivity(){
             val person = Person(firstName = firstNameEditText.text.toString(),
                 lastName = lastNameEditText.text.toString(),
                 emailAddr = emailEditText.text.toString(),
-                birthYear = birthYearEditText.text.toString())
+                birthYear = birthYearEditText.text.toString(),
+                googleId = SharedPreferencesSettings.loadString(this, SharedPreferenceKeys.GOOGLE_ID) ?: "",
+                googleIdToken = SharedPreferencesSettings.loadString(this, SharedPreferenceKeys.GOOGLE_ID_TOKEN) ?: "",
+                googleProfilePictureUrl = SharedPreferencesSettings.loadString(this, SharedPreferenceKeys.GOOGLE_PROFILE_PICTURE_URL) ?: "")
 
             personService.signUpPerson(person).enqueue(object:
                 Callback<Person?> {
@@ -88,14 +91,14 @@ class SignUpActivity : AppCompatActivity(){
                     call: Call<Person?>,
                     response: Response<Person?>
                 ) {
-                    if (response.body() != null && response.body()?.personId != 0L) { // our business rule is that if status is true then entity is not null
+                    if (response.body() != null && response.body()?.personId != 0L) {
+                        SharedPreferencesSettings.setLong(this@SignUpActivity, SharedPreferenceKeys.PERSON_ID, response.body()?.personId ?: 0)
                         Toast.makeText(this@SignUpActivity, "OK", Toast.LENGTH_LONG).show()
                     } else {
                         Toast.makeText(this@SignUpActivity, "Something went terribly wrong", Toast.LENGTH_LONG).show()
                     }
                 }
             })
-
         }else{
             Toast.makeText(this@SignUpActivity, "Erro no formulário!", Toast.LENGTH_LONG).show()
         }
