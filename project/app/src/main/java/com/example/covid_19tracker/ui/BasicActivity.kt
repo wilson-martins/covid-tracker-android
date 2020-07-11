@@ -1,4 +1,4 @@
-package com.example.covid_19tracker
+package com.example.covid_19tracker.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import com.example.covid_19tracker.R
 import com.example.covid_19tracker.common.SharedPreferenceKeys
 import com.example.covid_19tracker.common.SharedPreferencesSettings
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -43,7 +44,7 @@ open class BasicActivity : AppCompatActivity() {
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_settings -> true
-            R.id.action_logout-> signOut()
+            R.id.action_logout -> signOut()
             else -> super.onOptionsItemSelected(item)
         }
     }

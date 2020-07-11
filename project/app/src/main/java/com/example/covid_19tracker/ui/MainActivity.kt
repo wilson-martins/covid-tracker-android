@@ -1,8 +1,9 @@
-package com.example.covid_19tracker
+package com.example.covid_19tracker.ui
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import com.example.covid_19tracker.R
 import com.example.covid_19tracker.common.SharedPreferenceKeys
 import com.example.covid_19tracker.common.SharedPreferencesSettings
 import kotlinx.android.synthetic.main.activity_main.*
@@ -23,7 +24,8 @@ class MainActivity : BasicActivity() {
 
         //If the user is not logged in, start login activity
         if(SharedPreferencesSettings.loadBoolean(this,SharedPreferenceKeys.LOGGED_IN_PREF) == false) kotlin.run{
-            val intent:Intent = Intent(this,SignInActivity::class.java)
+            val intent:Intent = Intent(this,
+                SignInActivity::class.java)
             startActivity(intent)
         }
 

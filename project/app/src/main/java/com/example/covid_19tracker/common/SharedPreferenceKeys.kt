@@ -5,6 +5,7 @@ class SharedPreferenceKeys {
         // Values for Shared Prefrences
         const val LOGGED_IN_PREF: String = "logged_in_status"
         const val FIRST_LOGIN: String = "first_login"
+        const val PERSON_ID: String = "person_id"
 
         // Keys from Google's user account
         const val GOOGLE_ID = "google_id"

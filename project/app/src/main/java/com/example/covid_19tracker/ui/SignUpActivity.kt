@@ -1,4 +1,4 @@
-package com.example.covid_19tracker
+package com.example.covid_19tracker.ui
 
 import android.os.Bundle
 import android.text.Editable
@@ -7,11 +7,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.covid_19tracker.R
 import com.example.covid_19tracker.common.SharedPreferenceKeys
 import com.example.covid_19tracker.common.SharedPreferencesSettings
 import com.example.covid_19tracker.model.Person
 import com.example.covid_19tracker.service.PersonService
-import com.example.covid_19tracker.service.PersonServiceFactory
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -66,7 +66,7 @@ class SignUpActivity : AppCompatActivity(){
         zipCodeEditText.validate(message){s -> !s.isNullOrBlank()}
         addressTypeEditText.validate(message){s -> !s.isNullOrBlank()}
 
-        personService = PersonServiceFactory.makeService()
+        personService = PersonService.create()
 
         signUpButton.setOnClickListener { signUp() }
     }

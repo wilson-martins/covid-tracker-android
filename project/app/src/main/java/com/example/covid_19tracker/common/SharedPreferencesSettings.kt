@@ -30,6 +30,12 @@ class SharedPreferencesSettings{
             editor.apply()
         }
 
+        fun setLong(context: Context?, key : String, value: Long){
+            val editor :SharedPreferences.Editor = getPreferences(context).edit()
+            editor.putLong(key,value)
+            editor.apply()
+        }
+
         /**
          * Load a shared preference
          *  @param context
@@ -43,6 +49,10 @@ class SharedPreferencesSettings{
 
         fun loadBoolean(context: Context?, key: String): Boolean? {
             return getPreferences(context).getBoolean(key, false);
+        }
+
+        fun loadLong(context: Context?, key: String): Long? {
+            return getPreferences(context).getLong(key, 0);
         }
 
         fun firstLogin(context: Context?): Boolean?{

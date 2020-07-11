@@ -1,4 +1,4 @@
-package com.example.covid_19tracker
+package com.example.covid_19tracker.ui
 
 import android.app.DatePickerDialog
 import android.icu.util.Calendar
@@ -6,7 +6,17 @@ import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.Switch
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.covid_19tracker.R
+import com.example.covid_19tracker.common.SharedPreferenceKeys
+import com.example.covid_19tracker.common.SharedPreferencesSettings
+import com.example.covid_19tracker.model.HealthState
+import com.example.covid_19tracker.model.StatusHistory
+import com.example.covid_19tracker.service.StatusHistoryService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -20,6 +30,9 @@ class HealthStateActivity: AppCompatActivity() {
     private lateinit var showedSymptomsEditText: EditText
     private lateinit var metInfectedEditText: EditText
     private lateinit var positiveExamEditText: EditText
+    private lateinit var startSymptomsDate: EditText
+
+    private lateinit var statusHistoryService: StatusHistoryService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +45,9 @@ class HealthStateActivity: AppCompatActivity() {
         showedSymptomsEditText = findViewById(R.id.start_symptoms_date)
         metInfectedEditText = findViewById(R.id.met_infected_date)
         positiveExamEditText = findViewById(R.id.diagnose_date)
+        startSymptomsDate = findViewById(R.id.start_symptoms_date)
+
+        statusHistoryService = StatusHistoryService.create()
     }
 
     fun selectDate(view: View){
@@ -58,6 +74,8 @@ class HealthStateActivity: AppCompatActivity() {
         val positiveExam: Switch = findViewById(R.id.positive_exam_switch)
         val errorMessage = "Este campo deve ser preenchido!"
 
+        var healthState: HealthState = HealthState.CURED
+
         if(showedSymptoms.isChecked){
             if(showedSymptomsEditText.text.isNullOrBlank()){
                 showedSymptomsEditText.error = errorMessage
@@ -74,7 +92,48 @@ class HealthStateActivity: AppCompatActivity() {
             }
         }
 
-        // TODO: Save the helth state somewhere
+        val personId = SharedPreferencesSettings.loadLong(this, SharedPreferenceKeys.PERSON_ID)
+
+        if (personId != 0L) {
+            val curFormater = SimpleDateFormat("dd/MM/yyyy", Locale.US)
+            val statusDate = curFormater.parse(startSymptomsDate.text.toString())
+
+            val statusHistory = StatusHistory(
+                statusDt = statusDate!!,
+                healthState = healthState,
+                personId = personId!!
+            )
+            statusHistoryService.addStatusHistory(statusHistory).enqueue(object :
+                Callback<StatusHistory?> {
+                override fun onFailure(call: Call<StatusHistory?>, t: Throwable) {
+                    Toast.makeText(
+                        this@HealthStateActivity,
+                        "Oops something went wrong please check your internet connection",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+
+                override fun onResponse(
+                    call: Call<StatusHistory?>,
+                    response: Response<StatusHistory?>
+                ) {
+                    if (response.body() != null && response.body()?.personId != 0L) {
+                        SharedPreferencesSettings.setLong(
+                            this@HealthStateActivity,
+                            SharedPreferenceKeys.PERSON_ID,
+                            response.body()?.personId ?: 0
+                        )
+                        Toast.makeText(this@HealthStateActivity, "OK", Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(
+                            this@HealthStateActivity,
+                            "Something went terribly wrong",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+            })
+        }
     }
 
     private fun updateDateInView(editText:EditText) {

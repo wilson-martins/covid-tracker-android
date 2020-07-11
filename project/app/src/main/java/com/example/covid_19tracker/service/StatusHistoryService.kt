@@ -2,6 +2,7 @@ package com.example.covid_19tracker.service
 
 import com.example.covid_19tracker.common.Constants
 import com.example.covid_19tracker.model.Person
+import com.example.covid_19tracker.model.StatusHistory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -10,13 +11,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.PUT
 
-interface PersonService {
+interface StatusHistoryService {
 
-    @PUT("person")
-    fun signUpPerson(@Body person: Person): Call<Person>
+    @PUT("statusHistory")
+    fun addStatusHistory(@Body statusHistory: StatusHistory): Call<StatusHistory>
 
     companion object Factory {
-        fun create(): PersonService {
+        fun create(): StatusHistoryService {
             val logging = HttpLoggingInterceptor()
             logging.apply { logging.level = HttpLoggingInterceptor.Level.BODY }
             val httpClient = OkHttpClient.Builder().addInterceptor(logging)
@@ -27,7 +28,7 @@ interface PersonService {
 
             return builder
                 .client(httpClient.build())
-                .build().create(PersonService::class.java)
+                .build().create(StatusHistoryService::class.java)
         }
     }
 }
