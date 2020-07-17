@@ -12,6 +12,7 @@ import com.example.covid_19tracker.model.Person
 import com.example.covid_19tracker.service.PersonService
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
@@ -19,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class SignInActivity : BasicActivity() {
     private val RC_SIGN_IN = 9001
@@ -34,6 +36,10 @@ class SignInActivity : BasicActivity() {
 
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
+        val gso =
+            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build()
         val account = GoogleSignIn.getLastSignedInAccount(this)
 
         val signInButton: SignInButton = findViewById<SignInButton>(R.id.sign_in_button)
