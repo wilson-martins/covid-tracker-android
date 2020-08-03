@@ -1,10 +1,12 @@
 package com.example.covid_19tracker.ui
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.covid_19tracker.R
@@ -22,16 +24,16 @@ class SignUpActivity : AppCompatActivity(){
     var validForm = false
 
     // Layout components
+    private lateinit var firstNameTextView: TextView
+    private lateinit var lastNameTextView: TextView
+    private lateinit var emailTextView: TextView
+    private lateinit var birthYearTextView: TextView
     private lateinit var firstNameEditText: EditText
     private lateinit var lastNameEditText: EditText
     private lateinit var emailEditText: EditText
     private lateinit var birthYearEditText: EditText
-    private lateinit var countryEditText: EditText
-    private lateinit var stateEditText: EditText
-    private lateinit var cityEditText: EditText
-    private lateinit var zipCodeEditText: EditText
-    private lateinit var addressTypeEditText: EditText
     private lateinit var signUpButton: Button
+    private lateinit var oldTextColor: ColorStateList
 
     private lateinit var personService: PersonService
 
@@ -40,31 +42,16 @@ class SignUpActivity : AppCompatActivity(){
         setContentView(R.layout.activity_sign_up)
 
         // Initialize components
+        firstNameTextView = findViewById(R.id.first_name)
         firstNameEditText = findViewById(R.id.edit_first_name)
+        lastNameTextView = findViewById(R.id.last_name)
         lastNameEditText = findViewById(R.id.edit_last_name)
+        emailTextView = findViewById(R.id.email)
         emailEditText = findViewById(R.id.edit_email)
+        birthYearTextView = findViewById(R.id.birth_year)
         birthYearEditText = findViewById(R.id.edit_birth_year)
-        countryEditText = findViewById(R.id.edit_contry)
-        stateEditText = findViewById(R.id.edit_state)
-        cityEditText = findViewById(R.id.edit_city)
-        zipCodeEditText = findViewById(R.id.edit_zip_code)
-        addressTypeEditText = findViewById(R.id.edit_type_address)
-        signUpButton = findViewById(R.id.signup_button)
-
-        // Get data from google account
-        firstNameEditText.setText(SharedPreferencesSettings.loadString(this, SharedPreferenceKeys.GOOGLE_FIRST_NAME))
-        lastNameEditText.setText(SharedPreferencesSettings.loadString(this,SharedPreferenceKeys.GOOGLE_LAST_NAME))
-        emailEditText.setText(SharedPreferencesSettings.loadString(this, SharedPreferenceKeys.GOOGLE_EMAIL))
-
-        // Add change listeners to validate the form
-        val message = "Este campo deve ser preeenchido!"
-        birthYearEditText.validate(message){s -> !s.isNullOrBlank()}
-        countryEditText.validate(message){s -> !s.isNullOrBlank()}
-        stateEditText.validate(message){s -> !s.isNullOrBlank()}
-        cityEditText.validate(message){s -> !s.isNullOrBlank()}
-        zipCodeEditText.validate(message){s -> !s.isNullOrBlank()}
-        zipCodeEditText.validate(message){s -> !s.isNullOrBlank()}
-        addressTypeEditText.validate(message){s -> !s.isNullOrBlank()}
+        signUpButton = findViewById(R.id.sign_up_button)
+        oldTextColor = firstNameTextView.textColors
 
         personService = PersonService.create()
 
@@ -104,7 +91,6 @@ class SignUpActivity : AppCompatActivity(){
         }
     }
 
-
     // Helper function to validate the form depending on the state of the edit text
     private fun EditText.beforeTextChanged(afterTextChanged: (String) -> Unit) {
         this.addTextChangedListener(object: TextWatcher {
@@ -129,5 +115,4 @@ class SignUpActivity : AppCompatActivity(){
         }
         this.error = if (validator(this.text.toString())) null else message
     }
-
 }
