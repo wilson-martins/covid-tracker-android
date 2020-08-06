@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.SignUpActivity">
@@ -181,32 +181,29 @@
 
         <TextView
             android:id="@+id/type_address"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_left"
-            android:layout_marginEnd="@dimen/margin_right"
             android:text="@string/type_address"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edit_zip_code" />
 
-        <EditText
-            android:id="@+id/edit_type_address"
-            android:layout_width="match_parent"
+        <Spinner
+            android:id="@+id/spinner_type_address"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_left"
             android:layout_marginEnd="@dimen/margin_right"
-            android:inputType="number"
+            android:text="Opções"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/type_address" />
+            app:layout_constraintStart_toEndOf="@+id/type_address"
+            app:layout_constraintTop_toBottomOf="@+id/edit_zip_code" />
 
         <Button
             android:id="@+id/sign_up_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/signUp"
-            app:layout_constraintTop_toBottomOf="@id/edit_type_address"
+            app:layout_constraintTop_toBottomOf="@id/spinner_type_address"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
