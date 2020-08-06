@@ -21,25 +21,6 @@
         android:layout_height="match_parent"
         tools:context=".ui.LocationUpdateFragment">
 
-        <TextView
-            android:id="@+id/locationOutputTextView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/margin_normal"
-            android:layout_marginLeft="@dimen/margin_normal"
-            android:layout_marginTop="@dimen/margin_normal"
-            android:layout_marginEnd="@dimen/margin_normal"
-            android:layout_marginRight="@dimen/margin_normal"
-            android:layout_marginBottom="@dimen/margin_normal"
-            android:scrollbars="vertical"
-            android:textIsSelectable="true"
-            app:layout_constraintBottom_toTopOf="@+id/startOrStopLocationUpdatesButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.438"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/enableBackgroundLocationButton"
-            tools:text="Outputs location in intervals" />
-
         <Button
             android:id="@+id/startOrStopLocationUpdatesButton"
             android:layout_width="wrap_content"
@@ -65,6 +46,24 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/locationMapFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="24dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toTopOf="@+id/startOrStopLocationUpdatesButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/enableBackgroundLocationButton"
+            android:apiKey="@string/api_key"
+             />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

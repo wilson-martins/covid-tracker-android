@@ -2,15 +2,11 @@ package com.example.covid_19tracker.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentActivity
 import com.example.covid_19tracker.R
 import com.example.covid_19tracker.common.SharedPreferenceKeys
 import com.example.covid_19tracker.common.SharedPreferencesSettings
-import kotlinx.android.synthetic.main.activity_main.*
+
 
 class LocationActivity : AppCompatActivity(),
     PermissionRequestFragment.Callbacks,
@@ -38,7 +34,6 @@ class LocationActivity : AppCompatActivity(),
                 .replace(R.id.fragment_location, fragment)
                 .commit()
         }
-
     }
 
     // Triggered from the permission Fragment that it's the app has permissions to display the

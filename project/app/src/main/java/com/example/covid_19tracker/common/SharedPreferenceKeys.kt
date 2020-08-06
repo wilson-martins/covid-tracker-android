@@ -14,5 +14,8 @@ class SharedPreferenceKeys {
         const val GOOGLE_EMAIL = "google_email"
         const val GOOGLE_PROFILE_PICTURE_URL = "google_profile_picture_url"
         const val GOOGLE_ID_TOKEN = "google_id_token"
+
+        const val LATITUDE = "latitude"
+        const val LONGITUDE = "longitude"
     }
 }

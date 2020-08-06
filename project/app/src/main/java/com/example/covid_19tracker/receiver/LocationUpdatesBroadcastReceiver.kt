@@ -21,6 +21,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import com.example.covid_19tracker.common.SharedPreferenceKeys
+import com.example.covid_19tracker.common.SharedPreferencesSettings
 import com.example.covid_19tracker.data.LocationRepository
 import com.example.covid_19tracker.data.db.MyLocationEntity
 import com.google.android.gms.location.LocationResult
@@ -61,6 +63,16 @@ class LocationUpdatesBroadcastReceiver : BroadcastReceiver() {
                     LocationRepository.getInstance(context, Executors.newSingleThreadExecutor())
                         .addLocations(locations)
                 }
+                SharedPreferencesSettings.setString(
+                    context,
+                    SharedPreferenceKeys.LATITUDE,
+                    locationResult.lastLocation.latitude.toString()
+                )
+                SharedPreferencesSettings.setString(
+                    context,
+                    SharedPreferenceKeys.LONGITUDE,
+                    locationResult.lastLocation.longitude.toString()
+                )
             }
         }
     }
@@ -77,7 +89,8 @@ class LocationUpdatesBroadcastReceiver : BroadcastReceiver() {
         appProcesses.forEach { appProcess ->
             if (appProcess.importance ==
                 ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND &&
-                appProcess.processName == context.packageName) {
+                appProcess.processName == context.packageName
+            ) {
                 return true
             }
         }

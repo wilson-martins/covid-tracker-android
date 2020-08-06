@@ -36,6 +36,12 @@ class SharedPreferencesSettings{
             editor.apply()
         }
 
+        fun setFloat(context: Context?, key : String, value: Float){
+            val editor :SharedPreferences.Editor = getPreferences(context).edit()
+            editor.putFloat(key,value)
+            editor.apply()
+        }
+
         /**
          * Load a shared preference
          *  @param context
@@ -53,6 +59,10 @@ class SharedPreferencesSettings{
 
         fun loadLong(context: Context?, key: String): Long? {
             return getPreferences(context).getLong(key, 0);
+        }
+
+        fun loadFloat(context: Context?, key: String): Float? {
+            return getPreferences(context).getFloat(key, 0.0F);
         }
 
         fun firstLogin(context: Context?): Boolean?{
