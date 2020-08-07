@@ -22,6 +22,11 @@
     <string name="state">Estado:</string>
     <string name="contry">País</string>
     <string name="signUp">Cadastrar</string>
+    <string-array name="address_type_array">
+        <item>Casa</item>
+        <item>Apartamento</item>
+        <item>Outro</item>
+    </string-array>
 
     <string name="fine_location_permission_rationale">The fine location permission is needed for core functionality.</string>
     <string name="fine_permission_denied_explanation">Fine location permission was denied, but is needed for core functionality.</string>

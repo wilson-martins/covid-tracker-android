@@ -17,13 +17,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        val fab: View = findViewById(R.id.fab)
-
-        // Fab button launches the singUp activity
-        fab.setOnClickListener() {
-            intent = Intent(this, SignUpActivity::class.java)
-            startActivity(intent)
-        }
 
         //If the user is not logged in, start login activity
         if(SharedPreferencesSettings.loadBoolean(this,SharedPreferenceKeys.LOGGED_IN_PREF) == false) kotlin.run{
@@ -59,4 +52,9 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+    fun startUserProfileActivity(view: View){
+        intent = Intent(this, SignUpActivity::class.java)
+        startActivity(intent)
+    }
+
 }
