@@ -30,11 +30,9 @@ private const val TAG = "LocationUpdateFragment"
  *
  * Will suggest "enhanced feature" to enable background location requests if not approved.
  */
-class LocationUpdateFragment : Fragment(), OnMapReadyCallback {
+class LocationUpdateFragment : Fragment() {
 
     private var activityListener: Callbacks? = null
-
-    private var mapView: MapView? = null
 
     private val locationUpdateViewModel by lazy {
         ViewModelProviders.of(this).get(LocationUpdateViewModel::class.java)
@@ -69,11 +67,6 @@ class LocationUpdateFragment : Fragment(), OnMapReadyCallback {
             activityListener?.requestBackgroundLocationPermission()
         }
 
-        // Gets the MapView from the XML layout and creates it
-        mapView = v.findViewById(R.id.locationMapFragment) as MapView
-        mapView?.onCreate(savedInstanceState)
-        mapView?.getMapAsync(this)
-
         return v
     }
 
@@ -88,91 +81,11 @@ class LocationUpdateFragment : Fragment(), OnMapReadyCallback {
         )
     }
 
-    @RequiresApi(Build.VERSION_CODES.Q)
-    override fun onResume() {
-        super.onResume()
-        updateBackgroundButtonState()
-        mapView?.onResume()
-        mapView?.getMapAsync(this)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        mapView?.onCreate(savedInstanceState)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        mapView?.onPause()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mapView?.onDestroy()
-    }
-
-    override fun onLowMemory() {
-        super.onLowMemory()
-        mapView?.onLowMemory()
-    }
-
     override fun onDetach() {
         super.onDetach()
 
         activityListener = null
     }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        mapView?.onSaveInstanceState(outState)
-    }
-
-    override fun onMapReady(googleMap: GoogleMap?) {
-        val latLng = LatLng(
-            SharedPreferencesSettings.loadString(
-                context,
-                SharedPreferenceKeys.LATITUDE
-            )?.toDouble() ?: 0.0,
-            SharedPreferencesSettings.loadString(
-                context,
-                SharedPreferenceKeys.LONGITUDE
-            )?.toDouble() ?: 0.0
-        )
-        googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
-//        mapView?.onResume()
-    }
-//        locationUpdateViewModel.locationListLiveData.observe(
-//            viewLifecycleOwner,
-//            androidx.lifecycle.Observer { locations ->
-//                locations?.let {
-//                    Log.d(TAG, "Got ${locations.size} locations")
-//
-//                    if (locations.isEmpty()) {
-//                        googleMap?.apply {
-//                            val loc = LatLng(location.latitude, location.longitude)
-//                            addMarker(
-//                                MarkerOptions()
-//                                    .position(loc)
-//                                    .title("Visited place")
-//                            )
-//                        }
-//                    } else {
-//                        for (location in locations) {
-//                            googleMap?.apply {
-//                                val loc = LatLng(location.latitude, location.longitude)
-//                                addMarker(
-//                                    MarkerOptions()
-//                                        .position(loc)
-//                                        .title("Visited place")
-//                                )
-//                            }
-//                        }
-//
-//                    }
-//                }
-//            }
-//        )
-//}
 
     @RequiresApi(Build.VERSION_CODES.Q)
     private fun showBackgroundButton(): Boolean {

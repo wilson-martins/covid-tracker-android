@@ -26,6 +26,7 @@ import com.example.covid_19tracker.common.SharedPreferencesSettings
 import com.example.covid_19tracker.data.LocationRepository
 import com.example.covid_19tracker.data.db.MyLocationEntity
 import com.google.android.gms.location.LocationResult
+import com.google.android.gms.maps.model.LatLng
 import java.util.Date
 import java.util.concurrent.Executors
 
@@ -52,12 +53,23 @@ class LocationUpdatesBroadcastReceiver : BroadcastReceiver() {
         if (intent.action == ACTION_PROCESS_UPDATES) {
             LocationResult.extractResult(intent)?.let { locationResult ->
                 val locations = locationResult.locations.map { location ->
-                    MyLocationEntity(
-                        latitude = location.latitude,
-                        longitude = location.longitude,
-                        foreground = isAppInForeground(context),
-                        date = Date(location.time)
-                    )
+                    val dbLocation: MyLocationEntity? = LocationRepository.getInstance(context, Executors.newSingleThreadExecutor()).getLocation(
+                        LatLng(location.latitude, location.longitude)
+                    ).value
+
+                    if (dbLocation != null) {
+                        dbLocation.date = Date()
+                        dbLocation.count = dbLocation.count + 1
+                        dbLocation
+                    } else {
+                        MyLocationEntity(
+                            latitude = String.format("%.5f", location.latitude).toDouble(),
+                            longitude = String.format("%.5f", location.longitude).toDouble(),
+                            foreground = isAppInForeground(context),
+                            date = Date(location.time)
+                        )
+                    }
+
                 }
                 if (locations.isNotEmpty()) {
                     LocationRepository.getInstance(context, Executors.newSingleThreadExecutor())

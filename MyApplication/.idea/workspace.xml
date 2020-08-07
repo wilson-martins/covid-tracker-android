@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a7f47a5e-16e7-4aa4-8844-023a194db44e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../project/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../project/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/app/src/main/java/com/example/covid_19tracker/ui/LocationActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../project/app/src/main/java/com/example/covid_19tracker/ui/LocationActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/app/src/main/java/com/example/covid_19tracker/ui/LocationUpdateFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../project/app/src/main/java/com/example/covid_19tracker/ui/LocationUpdateFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/app/src/main/res/layout/activity_location.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../project/app/src/main/res/layout/activity_location.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/app/src/main/res/layout/fragment_location_update.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../project/app/src/main/res/layout/fragment_location_update.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../project/app/src/main/res/values/strings.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1fkKFMxQjmJdVqQL8MxQC3pXEvx" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a7f47a5e-16e7-4aa4-8844-023a194db44e" name="Default Changelist" comment="" />
+      <created>1596756545909</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1596756545909</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="945" y="241" width="670" height="676" key="search.everywhere.popup" timestamp="1596756574119">
+      <screen x="0" y="0" width="2560" height="1080" />
+    </state>
+    <state x="945" y="241" width="670" height="676" key="search.everywhere.popup/0.0.2560.1080@0.0.2560.1080" timestamp="1596756574119" />
+  </component>
+</project>

@@ -65,6 +65,4 @@
 
     <string name="batched_location_updates">Batched location updates</string>
     <string name="emptyLocationDatabaseMessage">To start receiving location updates, please click the button below!</string>
-
-    <string name="api_key">AIzaSyDkgjxYLq4JQ5V2c4J0ZCRdmzO7lhldw50</string>
 </resources>

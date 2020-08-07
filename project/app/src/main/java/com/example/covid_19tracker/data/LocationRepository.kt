@@ -5,6 +5,7 @@ import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData
 import com.example.covid_19tracker.data.db.MyLocationDatabase
 import com.example.covid_19tracker.data.db.MyLocationEntity
+import com.google.android.gms.maps.model.LatLng
 import java.util.*
 import java.util.concurrent.ExecutorService
 
@@ -23,11 +24,14 @@ class LocationRepository private constructor(
     // Database related fields/methods:
     private val locationDao = myLocationDatabase.locationDao()
 
+    fun getLocation(latLng: LatLng): LiveData<MyLocationEntity> = locationDao.getByLatLng(String.format("%.5f", latLng.latitude).toDouble(), String.format("%.5f", latLng.longitude).toDouble())
+
     /**
      * Returns all recorded locations from database.
      */
     fun getLocations(): LiveData<List<MyLocationEntity>> = locationDao.getLocations()
 
+    fun getMainLocations(): LiveData<List<MyLocationEntity>> = locationDao.getMainLocations()
     // Not being used now but could in future versions.
     /**
      * Returns specific location in database.
