@@ -15,8 +15,6 @@ class LocationUpdateViewModel(application: Application) : AndroidViewModel(appli
 
     val receivingLocationUpdates: LiveData<Boolean> = locationRepository.receivingLocationUpdates
 
-    val locationListLiveData = locationRepository.getLocations()
-
     fun startLocationUpdates() = locationRepository.startLocationUpdates()
 
     fun stopLocationUpdates() = locationRepository.stopLocationUpdates()

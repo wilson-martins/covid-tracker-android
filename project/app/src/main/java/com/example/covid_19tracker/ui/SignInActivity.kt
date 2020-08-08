@@ -1,5 +1,6 @@
 package com.example.covid_19tracker.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -74,7 +75,6 @@ class SignInActivity : BasicActivity() {
         try {
             val account =
                 completedTask.getResult(ApiException::class.java)
-
             // If fist sign in, save the user preferences
             if(SharedPreferencesSettings.firstLogin(this)== true){
                 SharedPreferencesSettings.setBoolean(this, SharedPreferenceKeys.FIRST_LOGIN, false)
@@ -129,6 +129,47 @@ class SignInActivity : BasicActivity() {
         Log.i("Google ID Token", googleIdToken)
         SharedPreferencesSettings.setString(this, SharedPreferenceKeys.GOOGLE_ID_TOKEN,
             googleIdToken)
+
+        val person = Person(
+            firstName = googleFirstName,
+            lastName = googleLastName,
+            emailAddr = googleEmail,
+            googleId = googleId,
+            googleIdToken = googleIdToken,
+            googleProfilePictureUrl = googleProfilePicURL
+        )
+
+        val context: Context = this
+        personService.signUpPerson(person).enqueue(object :
+            Callback<Person?> {
+            override fun onFailure(call: Call<Person?>, t: Throwable) {
+                Toast.makeText(
+                    context,
+                    "Oops something went wrong please check your internet connection",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+
+            override fun onResponse(
+                call: Call<Person?>,
+                response: Response<Person?>
+            ) {
+                if (response.body() != null && response.body()?.personId != 0L) {
+                    SharedPreferencesSettings.setLong(
+                        context,
+                        SharedPreferenceKeys.PERSON_ID,
+                        response.body()?.personId ?: 0
+                    )
+                    Toast.makeText(context, "OK", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(
+                        context,
+                        "Something went terribly wrong",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        })
 
         // Go to sign up activity
         intent = Intent(this, SignUpActivity::class.java)

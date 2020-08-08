@@ -16,14 +16,16 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyA7NKtO0JtAiKCF_KPQ5KPNodaN6mcJEIw"/>
+        <activity
+            android:name=".ui.BasicActivity"
+            android:label="Root"
+            android:parentActivityName=".ui.BasicActivity" />
 
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".ui.BasicActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -57,6 +59,13 @@
                 <action android:name="com.example.covid_19tracker.LocationUpdatesBroadcastReceiver.ACTION_PROCESS_UPDATES" />
             </intent-filter>
         </receiver>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyA7NKtO0JtAiKCF_KPQ5KPNodaN6mcJEIw"/>
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.example.covid_19tracker.ui.BasicActivity" />
     </application>
 
 </manifest>

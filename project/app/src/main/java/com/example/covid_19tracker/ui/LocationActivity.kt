@@ -10,8 +10,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
 import com.example.covid_19tracker.R
-import com.example.covid_19tracker.data.LocationRepository
-import com.example.covid_19tracker.data.db.MyLocationEntity
+import com.example.covid_19tracker.common.SharedPreferenceKeys
+import com.example.covid_19tracker.common.SharedPreferencesSettings
+import com.example.covid_19tracker.service.LocationService
 import com.example.covid_19tracker.utils.LocationUpdateViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -21,7 +22,9 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import java.util.concurrent.Executors
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 private const val TAG = "LocationUpdateFragment"
@@ -33,6 +36,7 @@ class LocationActivity : AppCompatActivity(),
 
     private lateinit var mMap: GoogleMap
     private lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
+    private lateinit var locationService: LocationService
     private var locationPermissionGranted = false
     private var lastKnownLocation: Location? = null
 
@@ -49,7 +53,7 @@ class LocationActivity : AppCompatActivity(),
 
         // Construct a FusedLocationProviderClient.
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
+        locationService = LocationService.create()
         locationUpdateViewModel.startLocationUpdates()
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -234,12 +238,26 @@ class LocationActivity : AppCompatActivity(),
     }
 
     private fun addMarkers() {
-        val locations:List<MyLocationEntity>? = LocationRepository.getInstance(this, Executors.newSingleThreadExecutor()).getMainLocations().value
-        locations?.stream()?.forEach {
-            if (it != null) {
-                mMap.addMarker(MarkerOptions().position(LatLng(it.latitude, it.longitude)))
-            }
-        }
+        val personId: Long = SharedPreferencesSettings.loadLong(this, SharedPreferenceKeys.PERSON_ID)
+            ?: return
+        locationService.getByPersonId(personId)
+            .enqueue(object : Callback<List<com.example.covid_19tracker.model.Location>> {
+                override fun onFailure(
+                    call: Call<List<com.example.covid_19tracker.model.Location>>?,
+                    t: Throwable?
+                ) {
+                    Log.e(TAG,"Error on getByPersonId request")
+                }
+
+                override fun onResponse(
+                    call: Call<List<com.example.covid_19tracker.model.Location>>?,
+                    response: Response<List<com.example.covid_19tracker.model.Location>>?
+                ) {
+                    response?.body()?.forEach { l ->
+                        mMap.addMarker(MarkerOptions().position(LatLng(l.latitude, l.longitude)))
+                    }
+                }
+            })
     }
 
 }
