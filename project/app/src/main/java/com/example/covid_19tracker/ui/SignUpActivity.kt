@@ -18,7 +18,7 @@ import retrofit2.Response
 class SignUpActivity : AppCompatActivity() {
 
     // Control variables
-    var validForm = false
+    var validForm = true
 
     // Layout components
     private lateinit var firstNameTextView: TextView
@@ -40,21 +40,20 @@ class SignUpActivity : AppCompatActivity() {
         // Initialize components
         firstNameTextView = findViewById(R.id.first_name)
         firstNameEditText = findViewById(R.id.edit_first_name)
-        firstNameEditText.validate("Campo obrigatório!"){firstNameEditText.text.isNullOrBlank()}
+        firstNameEditText.validate("Campo obrigatório!"){!firstNameEditText.text.isNullOrBlank()}
         lastNameTextView = findViewById(R.id.last_name)
         lastNameEditText = findViewById(R.id.edit_last_name)
-        lastNameEditText.validate("Campo obrigatório!"){lastNameEditText.text.isNullOrBlank()}
+        lastNameEditText.validate("Campo obrigatório!"){!lastNameEditText.text.isNullOrBlank()}
         emailTextView = findViewById(R.id.email)
         emailEditText = findViewById(R.id.edit_email)
-        emailEditText.validate("Campo obrigatório!"){emailEditText.text.isNullOrBlank()}
+        emailEditText.validate("Campo obrigatório!"){!emailEditText.text.isNullOrBlank()}
         birthYearTextView = findViewById(R.id.birth_year)
         birthYearEditText = findViewById(R.id.edit_birth_year)
         signUpButton = findViewById(R.id.sign_up_button)
         oldTextColor = firstNameTextView.textColors
         personService = PersonService.create()
-        signUpButton.setOnClickListener { signUp() }
 
-        val spinner: Spinner = findViewById(R.id.spinner)
+        val spinner: Spinner = findViewById(R.id.spinner_type_address)
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter.createFromResource(
             this,
@@ -66,6 +65,9 @@ class SignUpActivity : AppCompatActivity() {
             // Apply the adapter to the spinner
             spinner.adapter = adapter
         }
+
+        signUpButton.setOnClickListener{signUp()}
+
     }
 
     private fun signUp() {
