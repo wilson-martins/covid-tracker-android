@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.Toast
 import com.example.covid_19tracker.R
 import com.example.covid_19tracker.common.SharedPreferenceKeys
-import com.example.covid_19tracker.common.SharedPreferencesSettings
+import com.example.covid_19tracker.common.SharedPreferencesManager
 import com.example.covid_19tracker.model.Person
 import com.example.covid_19tracker.service.PersonService
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -66,7 +66,7 @@ class SignInActivity : BasicActivity() {
             val task =
                 GoogleSignIn.getSignedInAccountFromIntent(data)
             // Set signed in status
-            SharedPreferencesSettings.setBoolean(this, SharedPreferenceKeys.LOGGED_IN_PREF, true)
+            SharedPreferencesManager.setBoolean(SharedPreferenceKeys.LOGGED_IN_PREF, true)
             handleSignInResult(task)
         }
     }
@@ -76,8 +76,8 @@ class SignInActivity : BasicActivity() {
             val account =
                 completedTask.getResult(ApiException::class.java)
             // If fist sign in, save the user preferences
-            if(SharedPreferencesSettings.firstLogin(this)== true){
-                SharedPreferencesSettings.setBoolean(this, SharedPreferenceKeys.FIRST_LOGIN, false)
+            if(SharedPreferencesManager.firstLogin() == true){
+                SharedPreferencesManager.setBoolean(SharedPreferenceKeys.FIRST_LOGIN, false)
                 if (account != null) {
                     firstLogin(account)
                 }
@@ -103,32 +103,30 @@ class SignInActivity : BasicActivity() {
     private fun firstLogin(account: GoogleSignInAccount){
         val googleId = account.id ?: ""
         Log.i("Google ID", googleId)
-        SharedPreferencesSettings.setString(this, SharedPreferenceKeys.GOOGLE_ID, googleId)
+        SharedPreferencesManager.setString(SharedPreferenceKeys.GOOGLE_ID, googleId)
 
         val googleFirstName = account.givenName ?: ""
         Log.i("Google First Name", googleFirstName)
-        SharedPreferencesSettings.setString(this, SharedPreferenceKeys.GOOGLE_FIRST_NAME,
-            googleFirstName)
+        SharedPreferencesManager.setString(SharedPreferenceKeys.GOOGLE_FIRST_NAME, googleFirstName)
 
         val googleLastName = account.familyName ?: ""
         Log.i("Google Last Name", googleLastName)
-        SharedPreferencesSettings.setString(this, SharedPreferenceKeys.GOOGLE_LAST_NAME,
-            googleLastName)
+        SharedPreferencesManager.setString(SharedPreferenceKeys.GOOGLE_LAST_NAME, googleLastName)
 
         val googleEmail = account.email ?: ""
         Log.i("Google Email", googleEmail)
-        SharedPreferencesSettings.setString(this, SharedPreferenceKeys.GOOGLE_EMAIL,
-            googleEmail)
+        SharedPreferencesManager.setString(SharedPreferenceKeys.GOOGLE_EMAIL, googleEmail)
 
         val googleProfilePicURL = account.photoUrl.toString()
         Log.i("Google Profile Pic URL", googleProfilePicURL)
-        SharedPreferencesSettings.setString(this,
-            SharedPreferenceKeys.GOOGLE_PROFILE_PICTURE_URL, googleProfilePicURL)
+        SharedPreferencesManager.setString(
+            SharedPreferenceKeys.GOOGLE_PROFILE_PICTURE_URL,
+            googleProfilePicURL
+        )
 
         val googleIdToken = account.idToken ?: ""
         Log.i("Google ID Token", googleIdToken)
-        SharedPreferencesSettings.setString(this, SharedPreferenceKeys.GOOGLE_ID_TOKEN,
-            googleIdToken)
+        SharedPreferencesManager.setString(SharedPreferenceKeys.GOOGLE_ID_TOKEN, googleIdToken)
 
         val person = Person(
             firstName = googleFirstName,
@@ -155,8 +153,7 @@ class SignInActivity : BasicActivity() {
                 response: Response<Person?>
             ) {
                 if (response.body() != null && response.body()?.personId != 0L) {
-                    SharedPreferencesSettings.setLong(
-                        context,
+                    SharedPreferencesManager.setLong(
                         SharedPreferenceKeys.PERSON_ID,
                         response.body()?.personId ?: 0
                     )

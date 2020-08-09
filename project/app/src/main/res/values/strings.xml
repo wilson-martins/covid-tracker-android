@@ -21,7 +21,7 @@
     <string name="city">Cidade:</string>
     <string name="state">Estado:</string>
     <string name="contry">País</string>
-    <string name="signUp">Cadastrar</string>
+    <string name="signUp">Ok</string>
     <string-array name="address_type_array">
         <item>Casa</item>
         <item>Apartamento</item>
