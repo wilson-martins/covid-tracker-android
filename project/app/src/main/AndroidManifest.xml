@@ -35,8 +35,15 @@
 
         <activity
             android:name=".ui.SignUpActivity"
-            android:label="Cadastro de Usuário"
-            android:parentActivityName=".ui.MainActivity" />
+            android:label="Informações do Usuário"
+            android:parentActivityName=".ui.SignInActivity"
+        />
+
+        <activity
+            android:name=".ui.EditUserInformationActivity"
+            android:label="Editar informações"
+            android:parentActivityName=".ui.MainActivity"
+        />
 
         <activity
             android:name=".ui.SignInActivity"

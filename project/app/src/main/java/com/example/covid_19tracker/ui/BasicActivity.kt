@@ -8,7 +8,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.example.covid_19tracker.R
 import com.example.covid_19tracker.common.SharedPreferenceKeys
-import com.example.covid_19tracker.common.SharedPreferencesSettings
+import com.example.covid_19tracker.common.SharedPreferencesManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -19,6 +19,8 @@ open class BasicActivity : AppCompatActivity() {
     protected lateinit var mGoogleSignInClient: GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val preferences: SharedPreferencesManager = SharedPreferencesManager
+        preferences.init(this@BasicActivity)
         super.onCreate(savedInstanceState)
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
@@ -50,8 +52,8 @@ open class BasicActivity : AppCompatActivity() {
     }
 
     private fun signOut(): Boolean {
-        SharedPreferencesSettings.setBoolean(this,SharedPreferenceKeys.LOGGED_IN_PREF, false)
-        SharedPreferencesSettings.setBoolean(this, SharedPreferenceKeys.FIRST_LOGIN, true)
+        SharedPreferencesManager.setBoolean(SharedPreferenceKeys.LOGGED_IN_PREF, false)
+        SharedPreferencesManager.setBoolean(SharedPreferenceKeys.FIRST_LOGIN, true)
         mGoogleSignInClient.signOut()
             .addOnCompleteListener(this) {
                 // Update your UI here

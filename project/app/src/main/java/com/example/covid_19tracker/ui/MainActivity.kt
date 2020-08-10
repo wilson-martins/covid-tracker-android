@@ -2,13 +2,10 @@ package com.example.covid_19tracker.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import com.example.covid_19tracker.R
 import com.example.covid_19tracker.common.SharedPreferenceKeys
-import com.example.covid_19tracker.common.SharedPreferencesSettings
+import com.example.covid_19tracker.common.SharedPreferencesManager
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BasicActivity() {
@@ -19,7 +16,7 @@ class MainActivity : BasicActivity() {
         setSupportActionBar(toolbar)
 
         //If the user is not logged in, start login activity
-        if(SharedPreferencesSettings.loadBoolean(this,SharedPreferenceKeys.LOGGED_IN_PREF) == false) kotlin.run{
+        if(SharedPreferencesManager.loadBoolean(SharedPreferenceKeys.LOGGED_IN_PREF) == false) kotlin.run{
             val intent:Intent = Intent(this,
                 SignInActivity::class.java)
             startActivity(intent)
@@ -38,7 +35,8 @@ class MainActivity : BasicActivity() {
     }
 
     fun startUserProfileActivity(view: View){
-        intent = Intent(this, SignUpActivity::class.java)
+        // Go to sign up activity
+        intent = Intent(this, EditUserInformationActivity::class.java)
         startActivity(intent)
     }
 

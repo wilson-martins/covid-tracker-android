@@ -7,6 +7,13 @@ class SharedPreferenceKeys {
         const val FIRST_LOGIN: String = "first_login"
         const val PERSON_ID: String = "person_id"
 
+        const val BIRTH_YEAR = "birth_year"
+        const val COUNTRY = "country"
+        const val STATE = "state"
+        const val CITY = "city"
+        const val ZIP_CODE = "zip_code"
+        const val ADDRESS_TYPE = "address_type"
+
         // Keys from Google's user account
         const val GOOGLE_ID = "google_id"
         const val GOOGLE_FIRST_NAME = "google_first_name"

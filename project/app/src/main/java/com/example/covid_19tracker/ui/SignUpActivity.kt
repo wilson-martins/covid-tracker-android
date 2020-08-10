@@ -1,6 +1,7 @@
 package com.example.covid_19tracker.ui
 
-import android.content.res.ColorStateList
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,52 +9,57 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.covid_19tracker.R
 import com.example.covid_19tracker.common.SharedPreferenceKeys
-import com.example.covid_19tracker.common.SharedPreferencesSettings
+import com.example.covid_19tracker.common.SharedPreferencesManager
 import com.example.covid_19tracker.model.Person
 import com.example.covid_19tracker.service.PersonService
+import kotlinx.android.synthetic.main.activity_sign_up.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SignUpActivity : AppCompatActivity() {
-
+open class SignUpActivity : AppCompatActivity(){
     // Control variables
-    var validForm = true
+    protected var validForm = true
 
     // Layout components
-    private lateinit var firstNameTextView: TextView
-    private lateinit var lastNameTextView: TextView
-    private lateinit var emailTextView: TextView
-    private lateinit var birthYearTextView: TextView
     private lateinit var firstNameEditText: EditText
     private lateinit var lastNameEditText: EditText
     private lateinit var emailEditText: EditText
     private lateinit var birthYearEditText: EditText
+    private lateinit var countryEditText: EditText
+    private lateinit var stateEditText: EditText
+    private lateinit var cityEditText: EditText
+    private lateinit var zipCodeEditText: EditText
+    private lateinit var addressTypeSpinner: Spinner
     private lateinit var signUpButton: Button
-    private lateinit var oldTextColor: ColorStateList
     private lateinit var personService: PersonService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
+        initializeUIComponents()
+        fillFieldsWithUserData()
+    }
 
-        // Initialize components
-        firstNameTextView = findViewById(R.id.first_name)
+    private fun initializeUIComponents() {
+        // Mandatory fields
         firstNameEditText = findViewById(R.id.edit_first_name)
         firstNameEditText.validate("Campo obrigatório!"){!firstNameEditText.text.isNullOrBlank()}
-        lastNameTextView = findViewById(R.id.last_name)
         lastNameEditText = findViewById(R.id.edit_last_name)
         lastNameEditText.validate("Campo obrigatório!"){!lastNameEditText.text.isNullOrBlank()}
-        emailTextView = findViewById(R.id.email)
         emailEditText = findViewById(R.id.edit_email)
         emailEditText.validate("Campo obrigatório!"){!emailEditText.text.isNullOrBlank()}
-        birthYearTextView = findViewById(R.id.birth_year)
+
         birthYearEditText = findViewById(R.id.edit_birth_year)
+        countryEditText = findViewById(R.id.edit_contry)
+        stateEditText = findViewById(R.id.edit_state)
+        cityEditText = findViewById(R.id.edit_city)
+        zipCodeEditText = findViewById(R.id.edit_zip_code)
+        addressTypeSpinner = findViewById(R.id.spinner_type_address)
         signUpButton = findViewById(R.id.sign_up_button)
-        oldTextColor = firstNameTextView.textColors
+
         personService = PersonService.create()
 
-        val spinner: Spinner = findViewById(R.id.spinner_type_address)
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter.createFromResource(
             this,
@@ -63,39 +69,68 @@ class SignUpActivity : AppCompatActivity() {
             // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             // Apply the adapter to the spinner
-            spinner.adapter = adapter
+            addressTypeSpinner.adapter = adapter
         }
-
         signUpButton.setOnClickListener{signUp()}
-
     }
 
-    private fun signUp() {
+    private fun fillFieldsWithUserData() {
+        firstNameEditText.setText(
+            SharedPreferencesManager.loadString(SharedPreferenceKeys.GOOGLE_FIRST_NAME)
+        )
+        lastNameEditText.setText(
+            SharedPreferencesManager.loadString(SharedPreferenceKeys.GOOGLE_LAST_NAME)
+        )
+        emailEditText.setText(
+            SharedPreferencesManager.loadString(SharedPreferenceKeys.GOOGLE_EMAIL)
+        )
+        birthYearEditText.setText(
+            SharedPreferencesManager.loadString(SharedPreferenceKeys.BIRTH_YEAR)
+        )
+        countryEditText.setText(
+            SharedPreferencesManager.loadString(SharedPreferenceKeys.COUNTRY)
+        )
+        stateEditText.setText(
+            SharedPreferencesManager.loadString(SharedPreferenceKeys.STATE)
+        )
+        cityEditText.setText(
+            SharedPreferencesManager.loadString(SharedPreferenceKeys.CITY)
+        )
+        zipCodeEditText.setText(
+            SharedPreferencesManager.loadString(SharedPreferenceKeys.ZIP_CODE)
+        )
+        val pos =  SharedPreferencesManager.loadLong(SharedPreferenceKeys.ADDRESS_TYPE)
+        if (pos != null)
+            addressTypeSpinner.setSelection(pos.toInt())
+
+    }
+    private fun getContext() : Context {
+        return this@SignUpActivity
+    }
+
+    protected open fun signUp() {
+        val context = getContext()
         if (validForm) {
             val person = Person(
                 firstName = firstNameEditText.text.toString(),
                 lastName = lastNameEditText.text.toString(),
                 emailAddr = emailEditText.text.toString(),
                 birthYear = birthYearEditText.text.toString(),
-                googleId = SharedPreferencesSettings.loadString(
-                    this,
+                googleId = SharedPreferencesManager.loadString(
                     SharedPreferenceKeys.GOOGLE_ID
                 ) ?: "",
-                googleIdToken = SharedPreferencesSettings.loadString(
-                    this,
+                googleIdToken = SharedPreferencesManager.loadString(
                     SharedPreferenceKeys.GOOGLE_ID_TOKEN
                 ) ?: "",
-                googleProfilePictureUrl = SharedPreferencesSettings.loadString(
-                    this,
+                googleProfilePictureUrl = SharedPreferencesManager.loadString(
                     SharedPreferenceKeys.GOOGLE_PROFILE_PICTURE_URL
                 ) ?: ""
             )
-
             personService.signUpPerson(person).enqueue(object :
                 Callback<Person?> {
                 override fun onFailure(call: Call<Person?>, t: Throwable) {
                     Toast.makeText(
-                        this@SignUpActivity,
+                        context,
                         "Oops something went wrong please check your internet connection",
                         Toast.LENGTH_LONG
                     ).show()
@@ -106,24 +141,40 @@ class SignUpActivity : AppCompatActivity() {
                     response: Response<Person?>
                 ) {
                     if (response.body() != null && response.body()?.personId != 0L) {
-                        SharedPreferencesSettings.setLong(
-                            this@SignUpActivity,
+                        SharedPreferencesManager.setLong(
                             SharedPreferenceKeys.PERSON_ID,
                             response.body()?.personId ?: 0
                         )
-                        Toast.makeText(this@SignUpActivity, "OK", Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, "OK", Toast.LENGTH_LONG).show()
                     } else {
                         Toast.makeText(
-                            this@SignUpActivity,
+                            context,
                             "Something went terribly wrong",
                             Toast.LENGTH_LONG
                         ).show()
                     }
                 }
             })
+            saveUserDataOnSharedPreferences()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         } else {
-            Toast.makeText(this@SignUpActivity, "Erro no formulário!", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "Erro no formulário!", Toast.LENGTH_LONG).show()
         }
+    }
+
+    protected fun saveUserDataOnSharedPreferences() {
+        SharedPreferencesManager.setString(
+            SharedPreferenceKeys.BIRTH_YEAR, edit_birth_year.text.toString()
+        )
+        SharedPreferencesManager.setString(SharedPreferenceKeys.COUNTRY, edit_contry.text.toString())
+        SharedPreferencesManager.setString(SharedPreferenceKeys.STATE, edit_state.text.toString())
+        SharedPreferencesManager.setString(SharedPreferenceKeys.CITY, edit_city.text.toString())
+        SharedPreferencesManager.setString(SharedPreferenceKeys.ZIP_CODE, edit_zip_code.text.toString())
+        SharedPreferencesManager.setLong(
+            SharedPreferenceKeys.ADDRESS_TYPE,
+            addressTypeSpinner.selectedItemPosition.toLong()
+        )
     }
 
     // Helper function to validate the form depending on the state of the edit text
@@ -151,3 +202,4 @@ class SignUpActivity : AppCompatActivity() {
         this.error = if (validator(this.text.toString())) null else message
     }
 }
+
