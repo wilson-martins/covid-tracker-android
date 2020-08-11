@@ -6,7 +6,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.util.Log
 import com.example.covid_19tracker.common.SharedPreferenceKeys
-import com.example.covid_19tracker.common.SharedPreferencesSettings
+import com.example.covid_19tracker.common.SharedPreferencesManager
 import com.example.covid_19tracker.model.Location
 import com.example.covid_19tracker.service.LocationService
 import com.google.android.gms.location.LocationResult
@@ -34,7 +34,7 @@ class LocationUpdatesBroadcastReceiver : BroadcastReceiver() {
                 }
                 if (locations.isNotEmpty()) {
                     locations.forEach { l ->
-                        locationService.registerLocation(Location(SharedPreferencesSettings.loadLong(context, SharedPreferenceKeys.PERSON_ID), l.latitude, l.longitude)).enqueue(object :
+                        locationService.registerLocation(Location(SharedPreferencesManager.loadLong(SharedPreferenceKeys.PERSON_ID), l.latitude, l.longitude)).enqueue(object :
                             Callback<Location?> {
                             override fun onFailure(call: Call<Location?>, t: Throwable) {
                                 Log.d(TAG, "Error adding location. lat: ${l.latitude}, long: ${l.longitude}")
@@ -53,13 +53,11 @@ class LocationUpdatesBroadcastReceiver : BroadcastReceiver() {
                         })
                     }
                 }
-                SharedPreferencesSettings.setString(
-                    context,
+                SharedPreferencesManager.setString(
                     SharedPreferenceKeys.LATITUDE,
                     locationResult.lastLocation.latitude.toString()
                 )
-                SharedPreferencesSettings.setString(
-                    context,
+                SharedPreferencesManager.setString(
                     SharedPreferenceKeys.LONGITUDE,
                     locationResult.lastLocation.longitude.toString()
                 )

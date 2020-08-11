@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.covid_19tracker.R
 import com.example.covid_19tracker.common.SharedPreferenceKeys
-import com.example.covid_19tracker.common.SharedPreferencesSettings
+import com.example.covid_19tracker.common.SharedPreferencesManager
 import com.example.covid_19tracker.utils.LocationUpdateViewModel
 import com.example.covid_19tracker.utils.hasPermission
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException

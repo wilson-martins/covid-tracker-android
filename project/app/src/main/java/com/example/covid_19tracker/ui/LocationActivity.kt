@@ -11,7 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
 import com.example.covid_19tracker.R
 import com.example.covid_19tracker.common.SharedPreferenceKeys
-import com.example.covid_19tracker.common.SharedPreferencesSettings
+import com.example.covid_19tracker.common.SharedPreferencesManager
 import com.example.covid_19tracker.service.LocationService
 import com.example.covid_19tracker.utils.LocationUpdateViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -238,7 +238,7 @@ class LocationActivity : AppCompatActivity(),
     }
 
     private fun addMarkers() {
-        val personId: Long = SharedPreferencesSettings.loadLong(this, SharedPreferenceKeys.PERSON_ID)
+        val personId: Long = SharedPreferencesManager.loadLong(SharedPreferenceKeys.PERSON_ID)
             ?: return
         locationService.getByPersonId(personId)
             .enqueue(object : Callback<List<com.example.covid_19tracker.model.Location>> {

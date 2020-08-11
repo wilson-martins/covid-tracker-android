@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.covid_19tracker.R
 import com.example.covid_19tracker.common.SharedPreferenceKeys
-import com.example.covid_19tracker.common.SharedPreferencesSettings
+import com.example.covid_19tracker.common.SharedPreferencesManager
 import com.example.covid_19tracker.model.HealthState
 import com.example.covid_19tracker.model.StatusHistory
 import com.example.covid_19tracker.service.StatusHistoryService
@@ -92,7 +92,7 @@ class HealthStateActivity: AppCompatActivity() {
             }
         }
 
-        val personId = SharedPreferencesSettings.loadLong(this, SharedPreferenceKeys.PERSON_ID)
+        val personId = SharedPreferencesManager.loadLong(SharedPreferenceKeys.PERSON_ID)
 
         if (personId != 0L) {
             val curFormater = SimpleDateFormat("dd/MM/yyyy", Locale.US)
@@ -118,8 +118,7 @@ class HealthStateActivity: AppCompatActivity() {
                     response: Response<StatusHistory?>
                 ) {
                     if (response.body() != null && response.body()?.personId != 0L) {
-                        SharedPreferencesSettings.setLong(
-                            this@HealthStateActivity,
+                        SharedPreferencesManager.setLong(
                             SharedPreferenceKeys.PERSON_ID,
                             response.body()?.personId ?: 0
                         )
