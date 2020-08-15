@@ -3,7 +3,9 @@ package com.example.covid_19tracker.ui
 import android.app.DatePickerDialog
 import android.icu.util.Calendar
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Switch
 import android.widget.Toast
@@ -17,6 +19,7 @@ import com.example.covid_19tracker.service.StatusHistoryService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -33,7 +36,7 @@ class HealthStateActivity : AppCompatActivity() {
     private lateinit var calendar: Calendar
     private lateinit var statusDate: Date
     private lateinit var statusHistoryService: StatusHistoryService
-    private val curFormater = SimpleDateFormat("dd/MM/yyyy", Locale.US)
+    private val curFormater = SimpleDateFormat("dd/MM/yyyy")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,7 +105,7 @@ class HealthStateActivity : AppCompatActivity() {
                             SharedPreferenceKeys.PERSON_ID,
                             response.body()?.personId ?: 0
                         )
-                        Toast.makeText(this@HealthStateActivity, "OK", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@HealthStateActivity, "Data Saved!", Toast.LENGTH_LONG).show()
                     } else {
                         Toast.makeText(
                             this@HealthStateActivity,
@@ -153,7 +156,7 @@ class HealthStateActivity : AppCompatActivity() {
             return HealthState.SYMPTOMATIC
         }
         if (metInfected.isChecked) {
-            statusDate = curFormater.parse(metInfected.text.toString())
+            statusDate = curFormater.parse(metInfectedEditText.text.toString())
             return HealthState.POSSIBLY_INFECTED
         }
         statusDate = Date()
