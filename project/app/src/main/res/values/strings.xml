@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Covid-19 Tracker</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Configurações</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -38,7 +38,7 @@
     <string name="settings">Settings</string>
     <string name="ok">OK</string>
 
-    <string name="fine_location_access_rationale_title_text">Welcome to the Background Location Sample!</string>
+    <string name="fine_location_access_rationale_title_text">Welcome to the Covid Tracker App!</string>
 
     <string name="fine_location_access_rationale_details_text">This sample allows you to receive location updates while using the app.
         \n\n
@@ -70,4 +70,14 @@
 
     <string name="batched_location_updates">Batched location updates</string>
     <string name="emptyLocationDatabaseMessage">To start receiving location updates, please click the button below!</string>
+    <string name="confirm_button">Confirmar</string>
+    <string name="showed_symptoms_switch">Apresentou Sintomas</string>
+    <string name="form">Formulário</string>
+    <string name="start_symptoms_text">Data de início dos sintomas</string>
+    <string name="met_infected_switch">Entrou em contato com uma pessoa infectada</string>
+    <string name="met_infected_text">Data em que encontrou a pessoa infectada</string>
+    <string name="positive_diagnose_switch">Recebeu diagnótico positivo</string>
+    <string name="cured_switch">Está curado</string>
+    <string name="diagnose_date_text">Data do diagnóstico</string>
+    <string name="non_null_field">Este campo deve ser preenchido!</string>
 </resources>

@@ -161,6 +161,7 @@ class PermissionRequestFragment : Fragment() {
             context?.hasPermission(Manifest.permission.ACCESS_FINE_LOCATION) ?: return
 
         if (permissionApproved) {
+            Log.d(TAG, "Permission already granted to get locations")
             activityListener?.displayLocationUI()
         } else {
             requestPermissionWithRationale(
@@ -175,6 +176,7 @@ class PermissionRequestFragment : Fragment() {
             context?.hasPermission(Manifest.permission.ACCESS_BACKGROUND_LOCATION) ?: return
 
         if (permissionApproved) {
+            Log.d(TAG, "Permission already granted to get locations")
             activityListener?.displayLocationUI()
         } else {
             requestPermissionWithRationale(

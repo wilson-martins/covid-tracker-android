@@ -45,10 +45,16 @@ open class BasicActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_settings -> openSettingsActivity()
             R.id.action_logout -> signOut()
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun openSettingsActivity(): Boolean {
+        intent = Intent(this, SettingsActivity::class.java)
+        startActivity(intent)
+        return true
     }
 
     private fun signOut(): Boolean {

@@ -3,7 +3,9 @@ package com.example.covid_19tracker.ui
 import android.app.DatePickerDialog
 import android.icu.util.Calendar
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Switch
 import android.widget.Toast
@@ -17,25 +19,31 @@ import com.example.covid_19tracker.service.StatusHistoryService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
-class HealthStateActivity: AppCompatActivity() {
+class HealthStateActivity : AppCompatActivity() {
 
     private lateinit var showedSymptoms: Switch
     private lateinit var positiveExam: Switch
     private lateinit var metInfected: Switch
     private lateinit var cured: Switch
-    private lateinit var calendar: Calendar
     private lateinit var showedSymptomsEditText: EditText
     private lateinit var metInfectedEditText: EditText
     private lateinit var positiveExamEditText: EditText
-    private lateinit var startSymptomsDate: EditText
 
+    private lateinit var calendar: Calendar
+    private lateinit var statusDate: Date
     private lateinit var statusHistoryService: StatusHistoryService
+    private val curFormater = SimpleDateFormat("dd/MM/yyyy")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val actionbar = supportActionBar
+        actionbar?.setDisplayHomeAsUpEnabled(true)
+
         setContentView(R.layout.activity_health_information_edit)
         showedSymptoms = findViewById(R.id.showed_symptoms_switch)
         positiveExam = findViewById(R.id.positive_exam_switch)
@@ -45,13 +53,16 @@ class HealthStateActivity: AppCompatActivity() {
         showedSymptomsEditText = findViewById(R.id.start_symptoms_date)
         metInfectedEditText = findViewById(R.id.met_infected_date)
         positiveExamEditText = findViewById(R.id.diagnose_date)
-        startSymptomsDate = findViewById(R.id.start_symptoms_date)
-
         statusHistoryService = StatusHistoryService.create()
     }
 
-    fun selectDate(view: View){
-        val textView:EditText = view as EditText
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
+    fun selectDate(view: View) {
+        val textView: EditText = view as EditText
         val dateSetListener =
             DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 calendar.set(Calendar.YEAR, year)
@@ -59,44 +70,25 @@ class HealthStateActivity: AppCompatActivity() {
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 updateDateInView(textView)
             }
-        DatePickerDialog(this@HealthStateActivity,
+        DatePickerDialog(
+            this@HealthStateActivity,
             dateSetListener,
             // set DatePickerDialog to point to today's date when it loads up
             calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),
-            calendar.get(Calendar.DAY_OF_MONTH)).show()
+            calendar.get(Calendar.DAY_OF_MONTH)
+        ).show()
     }
 
-    fun saveInformation(view: View){
-        val showedSymptoms: Switch = findViewById(R.id.showed_symptoms_switch)
-        val cured: Switch  = findViewById(R.id.cured_switch)
-        val metInfected: Switch = findViewById(R.id.met_infected_switch)
-        val positiveExam: Switch = findViewById(R.id.positive_exam_switch)
-        val errorMessage = "Este campo deve ser preenchido!"
-
-        var healthState: HealthState = HealthState.CURED
-
-        if(showedSymptoms.isChecked){
-            if(showedSymptomsEditText.text.isNullOrBlank()){
-                showedSymptomsEditText.error = errorMessage
-            }
-        }
-        if(metInfected.isChecked){
-            if(metInfectedEditText.text.isNullOrBlank()){
-                metInfectedEditText.error = errorMessage
-            }
-        }
-        if(positiveExam.isChecked){
-            if(positiveExamEditText.text.isNullOrBlank()){
-                positiveExamEditText.error = errorMessage
-            }
+    fun saveInformation(view: View) {
+        if (!validateForm()) {
+            return
         }
 
+        var healthState = getHealthStateAndSetDate()
         val personId = SharedPreferencesManager.loadLong(SharedPreferenceKeys.PERSON_ID)
 
         if (personId != 0L) {
-            val curFormater = SimpleDateFormat("dd/MM/yyyy", Locale.US)
-            val statusDate = curFormater.parse(startSymptomsDate.text.toString())
 
             val statusHistory = StatusHistory(
                 statusDt = statusDate!!,
@@ -122,7 +114,7 @@ class HealthStateActivity: AppCompatActivity() {
                             SharedPreferenceKeys.PERSON_ID,
                             response.body()?.personId ?: 0
                         )
-                        Toast.makeText(this@HealthStateActivity, "OK", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@HealthStateActivity, "Data Saved!", Toast.LENGTH_LONG).show()
                     } else {
                         Toast.makeText(
                             this@HealthStateActivity,
@@ -135,7 +127,52 @@ class HealthStateActivity: AppCompatActivity() {
         }
     }
 
-    private fun updateDateInView(editText:EditText) {
+    private fun validateForm(): Boolean {
+        val errorMessage = "Este campo deve ser preenchido!"
+
+        if (showedSymptoms.isChecked) {
+            if (showedSymptomsEditText.text.isNullOrBlank()) {
+                showedSymptomsEditText.error = errorMessage
+                return false
+            }
+        }
+        if (metInfected.isChecked) {
+            if (metInfectedEditText.text.isNullOrBlank()) {
+                metInfectedEditText.error = errorMessage
+                return false
+            }
+        }
+        if (positiveExam.isChecked) {
+            if (positiveExamEditText.text.isNullOrBlank()) {
+                positiveExamEditText.error = errorMessage
+                return false
+            }
+        }
+        return true
+    }
+
+    private fun getHealthStateAndSetDate(): HealthState {
+        if (cured.isChecked) {
+            statusDate = Date()
+            return HealthState.CURED
+        }
+        if (positiveExam.isChecked) {
+            statusDate = curFormater.parse(positiveExamEditText.text.toString())
+            return HealthState.POSITIVE
+        }
+        if (showedSymptoms.isChecked) {
+            statusDate = curFormater.parse(showedSymptomsEditText.text.toString())
+            return HealthState.SYMPTOMATIC
+        }
+        if (metInfected.isChecked) {
+            statusDate = curFormater.parse(metInfectedEditText.text.toString())
+            return HealthState.POSSIBLY_INFECTED
+        }
+        statusDate = Date()
+        return HealthState.ASYMPTOMATIC
+    }
+
+    private fun updateDateInView(editText: EditText) {
         val myFormat = "dd/MM/yyyy" // mention the format you need
         val sdf = SimpleDateFormat(myFormat, Locale.US)
         editText!!.setText(sdf.format(calendar.time))

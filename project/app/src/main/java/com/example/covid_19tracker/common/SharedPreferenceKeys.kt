@@ -24,5 +24,7 @@ class SharedPreferenceKeys {
 
         const val LATITUDE = "latitude"
         const val LONGITUDE = "longitude"
+
+        const val LOCATION_UPDATES_ACTIVE = "location_updates_active"
     }
 }
