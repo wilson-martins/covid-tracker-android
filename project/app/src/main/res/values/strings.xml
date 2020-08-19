@@ -70,4 +70,14 @@
 
     <string name="batched_location_updates">Batched location updates</string>
     <string name="emptyLocationDatabaseMessage">To start receiving location updates, please click the button below!</string>
+    <string name="confirm_button">Confirmar</string>
+    <string name="showed_symptoms_switch">Apresentou Sintomas</string>
+    <string name="form">Formulário</string>
+    <string name="start_symptoms_text">Data de início dos sintomas</string>
+    <string name="met_infected_switch">Entrou em contato com uma pessoa infectada</string>
+    <string name="met_infected_text">Data em que encontrou a pessoa infectada</string>
+    <string name="positive_diagnose_switch">Recebeu diagnótico positivo</string>
+    <string name="cured_switch">Está curado</string>
+    <string name="diagnose_date_text">Data do diagnóstico</string>
+    <string name="non_null_field">Este campo deve ser preenchido!</string>
 </resources>
