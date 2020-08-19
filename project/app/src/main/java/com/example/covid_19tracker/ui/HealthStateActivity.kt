@@ -36,6 +36,10 @@ class HealthStateActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val actionbar = supportActionBar
+        actionbar?.setDisplayHomeAsUpEnabled(true)
+
         setContentView(R.layout.activity_health_information_edit)
         showedSymptoms = findViewById(R.id.showed_symptoms_switch)
         positiveExam = findViewById(R.id.positive_exam_switch)
@@ -48,6 +52,11 @@ class HealthStateActivity: AppCompatActivity() {
         startSymptomsDate = findViewById(R.id.start_symptoms_date)
 
         statusHistoryService = StatusHistoryService.create()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     fun selectDate(view: View){

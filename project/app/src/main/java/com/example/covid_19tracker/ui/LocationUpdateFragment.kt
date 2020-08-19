@@ -2,24 +2,20 @@ package com.example.covid_19tracker.ui
 
 import android.Manifest
 import android.content.Context
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.covid_19tracker.R
 import com.example.covid_19tracker.common.SharedPreferenceKeys
 import com.example.covid_19tracker.common.SharedPreferencesManager
+import com.example.covid_19tracker.databinding.FragmentLocationUpdateBinding
 import com.example.covid_19tracker.utils.LocationUpdateViewModel
 import com.example.covid_19tracker.utils.hasPermission
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException
-import com.google.android.gms.maps.*
-import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.fragment_location_update.view.*
 
 
@@ -60,14 +56,14 @@ class LocationUpdateFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-//        binding = FragmentLocationUpdateBinding.inflate(inflater, container, false)
-        val v = inflater.inflate(R.layout.fragment_location_update, container, false)
+        val binding = FragmentLocationUpdateBinding.inflate(inflater, container, false)
+//        val v = inflater.inflate(R.layout.fragment_location_update, container, false)
 
-        v.enableBackgroundLocationButton.setOnClickListener {
+        binding.enableBackgroundLocationButton.setOnClickListener {
             activityListener?.requestBackgroundLocationPermission()
         }
 
-        return v
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -79,6 +75,12 @@ class LocationUpdateFragment : Fragment() {
                 updateStartOrStopButtonState(view, receivingLocation)
             }
         )
+    }
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    override fun onResume() {
+        super.onResume()
+        updateBackgroundButtonState()
     }
 
     override fun onDetach() {
@@ -106,6 +108,7 @@ class LocationUpdateFragment : Fragment() {
         if (receivingLocation) {
             view.startOrStopLocationUpdatesButton.apply {
                 text = getString(R.string.stop_receiving_location)
+                SharedPreferencesManager.setBoolean(SharedPreferenceKeys.LOCATION_UPDATES_ACTIVE, true)
                 setOnClickListener {
                     locationUpdateViewModel.stopLocationUpdates()
                 }
@@ -113,6 +116,7 @@ class LocationUpdateFragment : Fragment() {
         } else {
             view.startOrStopLocationUpdatesButton.apply {
                 text = getString(R.string.start_receiving_location)
+                SharedPreferencesManager.setBoolean(SharedPreferenceKeys.LOCATION_UPDATES_ACTIVE, false)
                 setOnClickListener {
                     locationUpdateViewModel.startLocationUpdates()
                 }

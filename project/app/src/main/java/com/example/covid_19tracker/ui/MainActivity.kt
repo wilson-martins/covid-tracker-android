@@ -3,12 +3,19 @@ package com.example.covid_19tracker.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.ViewModelProviders
 import com.example.covid_19tracker.R
 import com.example.covid_19tracker.common.SharedPreferenceKeys
 import com.example.covid_19tracker.common.SharedPreferencesManager
+import com.example.covid_19tracker.data.MyLocationManager
+import com.example.covid_19tracker.utils.LocationUpdateViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BasicActivity() {
+
+    private val locationUpdateViewModel by lazy {
+        ViewModelProviders.of(this).get(LocationUpdateViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,6 +27,10 @@ class MainActivity : BasicActivity() {
             val intent:Intent = Intent(this,
                 SignInActivity::class.java)
             startActivity(intent)
+        }
+
+        if(SharedPreferencesManager.loadBoolean(SharedPreferenceKeys.LOCATION_UPDATES_ACTIVE) == true) kotlin.run{
+            locationUpdateViewModel.startLocationUpdates()
         }
 
     }

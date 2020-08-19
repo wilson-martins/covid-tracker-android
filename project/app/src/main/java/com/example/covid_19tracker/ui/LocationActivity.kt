@@ -27,7 +27,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-private const val TAG = "LocationUpdateFragment"
+private const val TAG = "LocationActivity"
 
 class LocationActivity : AppCompatActivity(),
     PermissionRequestFragment.Callbacks,
@@ -50,6 +50,9 @@ class LocationActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_location)
+
+        val actionbar = supportActionBar
+        actionbar?.setDisplayHomeAsUpEnabled(true)
 
         // Construct a FusedLocationProviderClient.
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
@@ -86,6 +89,11 @@ class LocationActivity : AppCompatActivity(),
 //                .replace(R.id.fragment_location, fragment)
 //                .commit()
 //        }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     // Triggered from the permission Fragment that it's the app has permissions to display the
