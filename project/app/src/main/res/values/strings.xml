@@ -7,6 +7,7 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
+    <!--  Sign up information  -->
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="first_name">Primeiro nome:</string>
@@ -71,6 +72,8 @@
     <string name="batched_location_updates">Batched location updates</string>
     <string name="emptyLocationDatabaseMessage">To start receiving location updates, please click the button below!</string>
     <string name="confirm_button">Confirmar</string>
+
+    <!-- Health State information -->
     <string name="showed_symptoms_switch">Apresentou Sintomas</string>
     <string name="form">Formulário</string>
     <string name="start_symptoms_text">Data de início dos sintomas</string>
@@ -82,4 +85,16 @@
     <string name="non_null_field">Este campo deve ser preenchido!</string>
 
     <string name="default_notification_channel_id">default_channel</string>
+    <string name="app_information_body">
+        Para que este aplicativo forneça informações mais confiáveis, é necessário que você gere notificações de sua saúde.
+        Caso apresente algum sintoma, tenha recebido diagnóstico positivo, ou já tenha se curado, não deixe de registrar. Para isso, clique
+        no ícone informações de saúde no menu inicial.\n\n
+
+        Neste aplicativo, você poderá acompanhar suas localizações passadas, para isso clique no ícone de "minhas localizações"
+        no menu inicial e habilite a geolocalização para captação de informações. Você poderá visualizar no mapa as últimas
+        regiões que visitou. Caso tenha ficado próximo a uma pessoa infectada, você receberá uma notificação para que possa tomar as
+        medidas necessárias. \n\n
+
+        No seu perfil, acessível a partir da página inicial, você poderá editar suas informações de cadastro.\n\n
+    </string>
 </resources>

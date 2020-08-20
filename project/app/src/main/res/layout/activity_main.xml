@@ -60,6 +60,7 @@
         android:layout_alignParentLeft="true"
         android:layout_margin="16dp"
         android:layout_marginEnd="16dp"
+        android:onClick="startAppInformationActivity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/map_icon"
         app:layout_constraintTop_toBottomOf="@+id/user_profile_text"

@@ -35,9 +35,11 @@ class MainActivity : BasicActivity() {
         setSupportActionBar(toolbar)
 
         //If the user is not logged in, start login activity
-        if(SharedPreferencesManager.loadBoolean(SharedPreferenceKeys.LOGGED_IN_PREF) == false) kotlin.run{
-            val intent:Intent = Intent(this,
-                SignInActivity::class.java)
+        if (SharedPreferencesManager.loadBoolean(SharedPreferenceKeys.LOGGED_IN_PREF) == false) kotlin.run {
+            val intent: Intent = Intent(
+                this,
+                SignInActivity::class.java
+            )
             startActivity(intent)
         }
 
@@ -83,17 +85,17 @@ class MainActivity : BasicActivity() {
         })
     }
 
-    fun editHealthInformation(view: View){
+    fun editHealthInformation(view: View) {
         intent = Intent(this, HealthStateActivity::class.java)
         startActivity(intent)
     }
 
-    fun openLocations(view: View){
+    fun openLocations(view: View) {
         intent = Intent(this, LocationActivity::class.java)
         startActivity(intent)
     }
 
-    fun startUserProfileActivity(view: View){
+    fun startUserProfileActivity(view: View) {
         // Go to sign up activity
         intent = Intent(this, EditUserInformationActivity::class.java)
         startActivity(intent)
@@ -102,6 +104,11 @@ class MainActivity : BasicActivity() {
     companion object {
 
         private const val TAG = "MainActivity"
+    }
+
+    fun startAppInformationActivity(view: View) {
+        intent = Intent(this, AppInformationActivity::class.java)
+        startActivity(intent)
     }
 
 }
