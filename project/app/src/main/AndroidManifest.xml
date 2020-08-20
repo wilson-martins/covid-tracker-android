@@ -47,6 +47,11 @@
         />
 
         <activity
+            android:name=".ui.AppInformationActivity"
+            android:label="Informações sobre o aplicativo"
+            android:parentActivityName=".ui.MainActivity"/>
+
+        <activity
             android:name=".ui.SignInActivity"
             android:label="Sign In com Conta Google" />
 
