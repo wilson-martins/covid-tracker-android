@@ -13,6 +13,7 @@ import com.google.android.gms.location.LocationResult
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 private const val TAG = "LUBroadcastReceiver"
 
@@ -29,12 +30,13 @@ class LocationUpdatesBroadcastReceiver : BroadcastReceiver() {
                     Location(
                         1L,
                         latitude = String.format("%.5f", location.latitude).toDouble(),
-                        longitude = String.format("%.5f", location.longitude).toDouble()
+                        longitude = String.format("%.5f", location.longitude).toDouble(),
+                        lastVisit = Date()
                     )
                 }
                 if (locations.isNotEmpty()) {
                     locations.forEach { l ->
-                        locationService.registerLocation(Location(SharedPreferencesManager.loadLong(SharedPreferenceKeys.PERSON_ID), l.latitude, l.longitude)).enqueue(object :
+                        locationService.registerLocation(Location(SharedPreferencesManager.loadLong(SharedPreferenceKeys.PERSON_ID), l.latitude, l.longitude, Date())).enqueue(object :
                             Callback<Location?> {
                             override fun onFailure(call: Call<Location?>, t: Throwable) {
                                 Log.d(TAG, "Error adding location. lat: ${l.latitude}, long: ${l.longitude}")

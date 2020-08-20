@@ -18,7 +18,7 @@ interface LocationService {
     @PUT("location")
     fun registerLocation(@Body location: Location): Call<Location>
 
-    @GET("getByPersonId/{personId}")
+    @GET("location/getByPersonId/{personId}")
     fun getByPersonId(@Path("personId") personId: Long): Call<List<Location>>
 
     companion object Factory {

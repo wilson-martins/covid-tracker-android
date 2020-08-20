@@ -262,7 +262,7 @@ class LocationActivity : AppCompatActivity(),
                     response: Response<List<com.example.covid_19tracker.model.Location>>?
                 ) {
                     response?.body()?.forEach { l ->
-                        mMap.addMarker(MarkerOptions().position(LatLng(l.latitude, l.longitude)))
+                        mMap.addMarker(MarkerOptions().position(LatLng(l.latitude, l.longitude)).title("Última visita: " + l.lastVisit))
                     }
                 }
             })
