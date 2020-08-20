@@ -107,7 +107,6 @@ class LocationUpdateFragment : Fragment() {
     private fun updateStartOrStopButtonState(view: View, receivingLocation: Boolean) {
         if (receivingLocation) {
             view.startOrStopLocationUpdatesButton.apply {
-                text = getString(R.string.stop_receiving_location)
                 SharedPreferencesManager.setBoolean(SharedPreferenceKeys.LOCATION_UPDATES_ACTIVE, true)
                 setOnClickListener {
                     locationUpdateViewModel.stopLocationUpdates()
@@ -115,7 +114,6 @@ class LocationUpdateFragment : Fragment() {
             }
         } else {
             view.startOrStopLocationUpdatesButton.apply {
-                text = getString(R.string.start_receiving_location)
                 SharedPreferencesManager.setBoolean(SharedPreferenceKeys.LOCATION_UPDATES_ACTIVE, false)
                 setOnClickListener {
                     locationUpdateViewModel.startLocationUpdates()

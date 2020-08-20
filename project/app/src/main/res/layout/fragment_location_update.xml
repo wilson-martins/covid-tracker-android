@@ -21,30 +21,28 @@
         android:layout_height="match_parent"
         tools:context=".ui.LocationUpdateFragment">
 
-        <Button
+        <Switch
             android:id="@+id/startOrStopLocationUpdatesButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_normal"
-            android:layout_marginLeft="@dimen/margin_normal"
-            android:layout_marginEnd="@dimen/margin_normal"
-            android:layout_marginRight="@dimen/margin_normal"
-            android:layout_marginBottom="@dimen/margin_normal"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="28dp"
+            android:checked="false"
             android:text="@string/start_receiving_location"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/enableBackgroundLocationButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_normal"
-            android:layout_marginEnd="@dimen/margin_normal"
+            android:layout_width="292dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
             android:text="@string/enhance_with_background_location_button_text"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/startOrStopLocationUpdatesButton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
