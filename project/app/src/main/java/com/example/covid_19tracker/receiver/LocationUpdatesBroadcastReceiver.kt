@@ -30,7 +30,8 @@ class LocationUpdatesBroadcastReceiver : BroadcastReceiver() {
                     Location(
                         1L,
                         latitude = String.format("%.5f", location.latitude).toDouble(),
-                        longitude = String.format("%.5f", location.longitude).toDouble()
+                        longitude = String.format("%.5f", location.longitude).toDouble(),
+                        lastVisit = Date()
                     )
                 }
                 if (locations.isNotEmpty()) {
