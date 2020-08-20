@@ -2,6 +2,7 @@ package com.example.covid_19tracker.service
 
 import com.example.covid_19tracker.common.Constants
 import com.example.covid_19tracker.model.Person
+import com.example.covid_19tracker.model.UpdateGoogleIdToken
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -9,6 +10,7 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
+import retrofit2.http.POST
 import retrofit2.http.PUT
 
 
@@ -16,6 +18,9 @@ interface PersonService {
 
     @PUT("person")
     fun signUpPerson(@Body person: Person): Call<Person>
+
+    @POST("person/setGoogleId")
+    fun updateGoogleIdToken(@Body updateGoogleIdToken: UpdateGoogleIdToken): Call<String>
 
     companion object Factory {
         fun create(): PersonService {
