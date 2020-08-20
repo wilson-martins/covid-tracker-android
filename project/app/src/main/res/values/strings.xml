@@ -80,4 +80,6 @@
     <string name="cured_switch">Está curado</string>
     <string name="diagnose_date_text">Data do diagnóstico</string>
     <string name="non_null_field">Este campo deve ser preenchido!</string>
+
+    <string name="default_notification_channel_id">default_channel</string>
 </resources>
