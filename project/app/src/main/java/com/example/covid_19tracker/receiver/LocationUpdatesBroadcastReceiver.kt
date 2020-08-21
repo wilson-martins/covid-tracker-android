@@ -31,7 +31,7 @@ class LocationUpdatesBroadcastReceiver : BroadcastReceiver() {
                         1L,
                         latitude = location.latitude,
                         longitude = location.longitude,
-                        lastVisit = Date()
+                        visitedDt = Date()
                     )
                 }
                 if (locations.isNotEmpty()) {
