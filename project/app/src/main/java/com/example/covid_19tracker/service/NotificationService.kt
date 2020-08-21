@@ -15,6 +15,7 @@ import com.example.covid_19tracker.common.SharedPreferenceKeys
 import com.example.covid_19tracker.common.SharedPreferencesManager
 import com.example.covid_19tracker.model.UpdateGoogleIdToken
 import com.example.covid_19tracker.ui.MainActivity
+import com.example.covid_19tracker.ui.NotificationMessageActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import retrofit2.Call
@@ -72,7 +73,7 @@ class NotificationService: FirebaseMessagingService() {
     }
 
     private fun sendNotification(messageBody: String) {
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, NotificationMessageActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         val pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
             PendingIntent.FLAG_ONE_SHOT)
@@ -84,7 +85,7 @@ class NotificationService: FirebaseMessagingService() {
             .setContentTitle("Covid 19 Tracker")
             .setContentText(messageBody)
             .setStyle(NotificationCompat.BigTextStyle()
-            .bigText(messageBody))
+                .bigText(messageBody))
             .setAutoCancel(true)
             .setSound(defaultSoundUri)
             .setContentIntent(pendingIntent)
