@@ -29,8 +29,8 @@ class LocationUpdatesBroadcastReceiver : BroadcastReceiver() {
                 val locations = locationResult.locations.map { location ->
                     Location(
                         1L,
-                        latitude = String.format("%.5f", location.latitude).toDouble(),
-                        longitude = String.format("%.5f", location.longitude).toDouble(),
+                        latitude = location.latitude,
+                        longitude = location.longitude,
                         lastVisit = Date()
                     )
                 }
