@@ -11,17 +11,45 @@
         tools:context=".ui.AppInformationActivity">
 
         <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/covid_information_title"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="Sintomas da COVID-19"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+        </TextView>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/covid_information_body"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/covid19_information"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/covid_information_title">
+        </TextView>
+
+
+        <TextView
             android:layout_width="wrap_content"
             android:id="@+id/app_information_tile"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:text="Informações sobre o App"
+            android:text="COVID-19 - tracker"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/covid_information_body">
         </TextView>
 
         <TextView
@@ -36,6 +64,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/app_information_tile">
         </TextView>
+
+        
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
