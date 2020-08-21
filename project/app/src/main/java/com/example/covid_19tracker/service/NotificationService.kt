@@ -1,5 +1,6 @@
 package com.example.covid_19tracker.service
 
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -82,6 +83,8 @@ class NotificationService: FirebaseMessagingService() {
             .setSmallIcon(R.drawable.covid_icon)
             .setContentTitle("Covid 19 Tracker")
             .setContentText(messageBody)
+            .setStyle(NotificationCompat.BigTextStyle()
+            .bigText(messageBody))
             .setAutoCancel(true)
             .setSound(defaultSoundUri)
             .setContentIntent(pendingIntent)
