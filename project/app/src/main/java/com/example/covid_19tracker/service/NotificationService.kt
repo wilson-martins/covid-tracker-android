@@ -46,6 +46,7 @@ class NotificationService: FirebaseMessagingService() {
         // Check if message contains a data payload.
         if (remoteMessage.data.isNotEmpty()) {
             Log.d(TAG, "Message data payload: ${remoteMessage.data}")
+            sendNotification(remoteMessage.data.getOrDefault("body", "Teste"))
         }
 
         // Check if message contains a notification payload.
@@ -78,7 +79,7 @@ class NotificationService: FirebaseMessagingService() {
         val channelId = getString(R.string.default_notification_channel_id)
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
-//            .setSmallIcon(R.drawable.ic_stat_ic_notification)
+            .setSmallIcon(R.drawable.covid_icon)
             .setContentTitle("Covid 19 Tracker")
             .setContentText(messageBody)
             .setAutoCancel(true)
