@@ -119,4 +119,12 @@
         \u2022 Pessoas saudáveis que apresentarem os sintomas leves devem acompanhar seus sintomas em casa.\n
         \u2022 Em média, os sintomas aparecem após 5 ou 6 dias depois de ser infectado com o vírus. Porém, isso pode levar até 14 dias.\n
     </string>
+    <string name="alert_message">
+        Você possivelmente entrou em contato com uma pessoa infectada.\n
+        Fique em alerta nos próximos dias para o surgimento de quaisquer sintomas como febre, dor de cabeça, cansaço, falta de ar.
+        Para mais informações consulte o ícone de informações no menu inicial.\n
+        Não deixe de notificar seus sintomas nos próximos dias no app, isso nos ajudará a enviar informações mais precisas aos nossos usuários.\n
+
+    </string>
+    <string name="alert_title">Alerta!</string>
 </resources>
